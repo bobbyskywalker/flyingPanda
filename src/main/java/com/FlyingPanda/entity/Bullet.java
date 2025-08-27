@@ -24,12 +24,14 @@ public class Bullet {
         this.direction = direction;
         this.x = owner.x;
         this.y = owner.y;
+
+        getBulletImage();
     }
 
     public void getBulletImage() {
         try {
-            left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo.png")));
-            right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo.png")));
+            left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
+            right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Player extends Entity {
@@ -25,7 +26,9 @@ public class Player extends Entity {
         this.x = 100;
         this.y = 100;
         speed = 4;
+        shootingRatio = 5;
         direction = "down";
+        bullets = new ArrayList<>();
     }
 
     public void getPlayerImage() {
@@ -60,6 +63,12 @@ public class Player extends Entity {
         } else if (keyHandler.rightPressed) {
             this.direction = "right";
             this.x += this.speed;
+        } else if (keyHandler.spacePressed) {
+            shootCounter++;
+            if (shootCounter > shootingRatio) {
+                bullets.add(new Bullet(gp, this, "right"));
+                shootCounter = 0;
+            }
         }
 
         spriteCounter++;
@@ -69,6 +78,11 @@ public class Player extends Entity {
             else if (spriteNum == 2)
                 spriteNum = 1;
             spriteCounter = 0;
+        }
+
+        if (bullets != null) {
+            for (Bullet b : bullets)
+                b.update();
         }
     }
 
@@ -106,6 +120,12 @@ public class Player extends Entity {
                     img = right3;
                 break;
         }
+        if (bullets != null) {
+            for (Bullet b: bullets) {
+                b.draw(g2);
+            }
+        }
+
         g2.drawImage(img, x, y, gp.tileSize, gp.tileSize, null);
     }
 }
