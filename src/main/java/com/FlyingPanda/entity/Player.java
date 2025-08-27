@@ -26,7 +26,7 @@ public class Player extends Entity {
         this.x = 100;
         this.y = 100;
         speed = 4;
-        shootingRatio = 5;
+        shootingRatio = 15;
         direction = "down";
         bullets = new ArrayList<>();
     }
@@ -50,20 +50,38 @@ public class Player extends Entity {
         }
     }
 
+    private void updatePlayerBullets() {
+        if (bullets != null) {
+            for (int i = 0; i < bullets.size(); i++) {
+                Bullet b = bullets.get(i);
+                b.update();
+
+                if (b.x < 0 || b.x > gp.screenWidth) {
+                    bullets.remove(b);
+                    i--;
+                }
+            }
+        }
+    }
+
     public void update() {
         if (keyHandler.upPressed) {
             this.direction = "up";
             this.y -= this.speed;
-        } else if (keyHandler.downPressed) {
+        }
+        if (keyHandler.downPressed) {
             this.direction = "down";
             this.y += this.speed;
-        } else if (keyHandler.leftPressed) {
+        }
+        if (keyHandler.leftPressed) {
             this.direction = "left";
             this.x -= this.speed;
-        } else if (keyHandler.rightPressed) {
+        }
+        if (keyHandler.rightPressed) {
             this.direction = "right";
             this.x += this.speed;
-        } else if (keyHandler.spacePressed) {
+        }
+        if (keyHandler.spacePressed) {
             shootCounter++;
             if (shootCounter > shootingRatio) {
                 bullets.add(new Bullet(gp, this, "right"));
@@ -80,10 +98,7 @@ public class Player extends Entity {
             spriteCounter = 0;
         }
 
-        if (bullets != null) {
-            for (Bullet b : bullets)
-                b.update();
-        }
+        updatePlayerBullets();
     }
 
     public void draw(Graphics2D g2) {
