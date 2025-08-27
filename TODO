@@ -1,0 +1,14 @@
+moving background
+player collision
+
+enemies {
+    map collisions
+    bullets (enemy - player bullet collisions)
+    health
+}
+
+player - enemy bullet collision
+HUD, player health, scoring
+SFX
+
+Leaderboard server & database
