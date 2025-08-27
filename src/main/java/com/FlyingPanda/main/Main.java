@@ -1,4 +1,4 @@
-package main;
+package com.FlyingPanda.main;
 
 import javax.swing.*;
 

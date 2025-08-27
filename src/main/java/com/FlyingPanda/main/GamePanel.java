@@ -1,6 +1,6 @@
-package main;
+package com.FlyingPanda.main;
 
-import entity.Player;
+import com.FlyingPanda.entity.Player;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
+        this.setBackground(Color.BLUE);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
