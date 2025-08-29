@@ -67,19 +67,27 @@ public class Player extends Entity {
     public void update() {
         if (keyHandler.upPressed) {
             this.direction = "up";
-            this.y -= this.speed;
+            if (this.y > 0) {
+                this.y -= this.speed;
+            }
         }
         if (keyHandler.downPressed) {
             this.direction = "down";
-            this.y += this.speed;
+            if (this.y + gp.tileSize < gp.screenHeight) {
+                this.y += this.speed;
+            }
         }
         if (keyHandler.leftPressed) {
             this.direction = "left";
-            this.x -= this.speed;
+            if (this.x > 0) {
+                this.x -= this.speed;
+            }
         }
         if (keyHandler.rightPressed) {
             this.direction = "right";
-            this.x += this.speed;
+            if (this.x + gp.tileSize < gp.screenWidth) {
+                this.x += this.speed;
+            }
         }
         if (keyHandler.spacePressed) {
             shootCounter++;
