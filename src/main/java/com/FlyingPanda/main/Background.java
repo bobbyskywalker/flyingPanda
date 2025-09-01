@@ -12,7 +12,7 @@ public class Background {
     private BufferedImage layer2;
 
     private int mainX = 0, layer1X = 0, layer2X = 0;
-    private double mainSpeed = 0.5, layer1Speed = 1.5, layer2Speed = 2;
+    private static final double mainSpeed = 0.5, layer1Speed = 1.5, layer2Speed = 2;
 
     Background(String mainPath, String layer1Path, String layer2Path) {
         try {

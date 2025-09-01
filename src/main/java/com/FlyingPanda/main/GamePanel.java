@@ -1,18 +1,20 @@
 package com.FlyingPanda.main;
 
+import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 20;
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
+    static final int maxScreenCol = 16;
+    static final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
 
@@ -22,9 +24,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     static Thread gameThread;
 
-    Controller keyHandler = new Controller();
+    static Controller keyHandler = new Controller();
 
     Player player = new Player(keyHandler, this);
+
+    static ArrayList<Eagle> eagles;
 
     public GamePanel() {
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
@@ -32,6 +36,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        eagles = new ArrayList<>();
+        eagles.add(new Eagle(this));
     }
 
     public void startGameThread() {
@@ -42,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         bg.update(this);
         player.update();
+        for (Eagle e : eagles)
+            e.update();
     }
 
     @Override
@@ -50,6 +58,8 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         bg.draw(g2, this);
         player.draw(g2);
+        for (Eagle e : eagles)
+            e.draw(g2);
     }
 
     @Override
