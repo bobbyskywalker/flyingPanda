@@ -18,6 +18,12 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyHandler = keyH;
 
+        this.solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -96,6 +102,9 @@ public class Player extends Entity {
                 shootCounter = 0;
             }
         }
+
+        collisionOn = false;
+        gp.colissionChecker.checkTile(this);
 
         spriteCounter++;
         if (spriteCounter > 10) {

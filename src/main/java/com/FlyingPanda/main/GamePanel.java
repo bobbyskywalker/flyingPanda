@@ -2,6 +2,7 @@ package com.FlyingPanda.main;
 
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
+import com.FlyingPanda.utils.ColissionChecker;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -25,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     static Thread gameThread;
 
     static Controller keyHandler = new Controller();
+
+    public ColissionChecker colissionChecker = new ColissionChecker(this);
 
     Player player = new Player(keyHandler, this);
 
