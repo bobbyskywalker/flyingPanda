@@ -2,7 +2,7 @@ package com.FlyingPanda.main;
 
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
-import com.FlyingPanda.utils.ColissionChecker;
+import com.FlyingPanda.utils.CollissionChecker;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
-    final int originalTileSize = 20;
+    public final int originalTileSize = 20;
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale;
@@ -26,8 +26,6 @@ public class GamePanel extends JPanel implements Runnable {
     static Thread gameThread;
 
     static Controller keyHandler = new Controller();
-
-    public ColissionChecker colissionChecker = new ColissionChecker(this);
 
     Player player = new Player(keyHandler, this);
 
@@ -53,6 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
         for (Eagle e : eagles)
             e.update();
+
+        CollissionChecker.checkAllCollisions(player, eagles, this);
     }
 
     @Override

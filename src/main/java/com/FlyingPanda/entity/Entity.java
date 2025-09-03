@@ -8,7 +8,7 @@ public class Entity {
     public int x, y;
     public int speed;
 
-    ArrayList<Bullet> bullets;
+    public ArrayList<Bullet> bullets;
     int shootingRatio;
     int shootCounter;
 
@@ -18,7 +18,7 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
 
-    public Rectangle solidArea;
-    public boolean collisionOn = false;
-
+    public ArrayList<Bullet> getBullets() {
+        return this.bullets;
+    }
 }
