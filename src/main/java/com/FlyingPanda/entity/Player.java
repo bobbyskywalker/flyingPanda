@@ -28,6 +28,7 @@ public class Player extends Entity {
         speed = 4;
         shootingRatio = 15;
         direction = "down";
+        setShotDamage(30);
         bullets = new ArrayList<>();
     }
 
@@ -105,12 +106,13 @@ public class Player extends Entity {
                 spriteNum = 1;
             spriteCounter = 0;
         }
-
         updatePlayerBullets();
     }
 
     public void draw(Graphics2D g2) {
         BufferedImage img = null;
+
+        drawHealthBar(g2, gp.tileSize);
 
         switch (direction) {
             case "up":

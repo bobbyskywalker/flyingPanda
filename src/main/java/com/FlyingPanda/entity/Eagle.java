@@ -27,6 +27,7 @@ public class Eagle extends Entity {
 
         speed = 1 + rand.nextInt(3);
         shootingRatio = 50;
+        setShotDamage(10);
         direction = "left";
         bullets = new ArrayList<>();
     }
@@ -88,6 +89,9 @@ public class Eagle extends Entity {
 
     public void draw(Graphics2D g2) {
         BufferedImage img = (this.spriteNum == 1) ? front1 : front2;
+
+        drawHealthBar(g2, gp.tileSize);
+
         if (bullets != null) {
             for (Bullet b: bullets) {
                 b.draw(g2);

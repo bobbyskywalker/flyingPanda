@@ -39,8 +39,7 @@ public class CollissionChecker {
                 if (checkBulletEntityCollision(enemyBullet, player.x, player.y, gp)) {
                     eagle.bullets.remove(i);
                     i--;
-                    // TODO: Reduce player health, play sound effect, etc.
-                    System.out.println("Player hit by eagle bullet!");
+                    player.setHealth(player.getHealth() - eagle.getShotDamage());
                 }
             }
         }
@@ -54,14 +53,15 @@ public class CollissionChecker {
             for (int eagleIndex = 0; eagleIndex < eagles.size(); eagleIndex++) {
                 Eagle eagle = eagles.get(eagleIndex);
                 if (checkBulletEntityCollision(playerBullet, eagle.x, eagle.y, gp)) {
-                    // Handle enemy hit by player bullet
                     player.bullets.remove(bulletIndex);
                     bulletIndex--;
-                    // TODO: Reduce enemy health, add score, play sound effect, etc.
-                    // For now, let's just remove the eagle
-                    eagles.remove(eagleIndex);
-                    eagleIndex--;
-                    System.out.println("Eagle hit by player bullet!");
+
+                    var processedEagle = eagles.get(eagleIndex);
+                    int processedEagleHealth = processedEagle.getHealth();
+                    processedEagle.setHealth(processedEagleHealth - player.getShotDamage());
+                    if (processedEagle.getHealth() <= 0)
+                        eagles.remove(eagleIndex);
+
                     break;
                 }
             }
