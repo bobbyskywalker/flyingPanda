@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (Eagle e : eagles)
             e.update();
 
-        CollissionChecker.checkAllCollisions(player, eagles, this);
+        CollissionChecker.checkAllCollisions(player, eagles);
     }
 
     @Override
@@ -76,16 +76,15 @@ public class GamePanel extends JPanel implements Runnable {
             deltaTime += (currentTime - lastTime) / drawInterval;
             timer += (currentTime - lastTime);
             lastTime = currentTime;
+
             if (deltaTime >= 1) {
                 update();
                 repaint();
                 deltaTime--;
             }
 
-            if (timer > 1000000000) {
+            if (timer > 1000000000)
                 timer = 0;
-            }
-
         }
     }
 }
