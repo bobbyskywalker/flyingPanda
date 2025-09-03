@@ -15,15 +15,16 @@ public class Bullet {
     public int x, y;
     public int speed = 5;
 
-    public BufferedImage left, right;
+    public BufferedImage left;
+    public BufferedImage right;
     public String direction;
 
     public Bullet(GamePanel gp, Entity owner, String direction) {
         this.gp = gp;
         this.owner = owner;
         this.direction = direction;
-        this.x = owner.x;
-        this.y = owner.y;
+        this.x = owner.getX();
+        this.y = owner.getY();
 
         getBulletImage();
     }
@@ -51,6 +52,6 @@ public class Bullet {
             case "right" -> right;
             default -> null;
         };
-        g2.drawImage(img, this.x, this.y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(img, this.x, this.y, GamePanel.tileSize, GamePanel.tileSize, null);
     }
 }

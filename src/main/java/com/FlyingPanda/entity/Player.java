@@ -23,13 +23,13 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        this.x = 100;
-        this.y = 100;
-        speed = 4;
+        setX(100);
+        setY(100);
+        setSpeed(4);
         shootingRatio = 15;
-        direction = "down";
+        setDirection("down");
         setShotDamage(30);
-        bullets = new ArrayList<>();
+        setBullets(new ArrayList<>());
     }
 
     public void getPlayerImage() {
@@ -52,13 +52,16 @@ public class Player extends Entity {
     }
 
     private void updatePlayerBullets() {
-        if (bullets != null) {
-            for (int i = 0; i < bullets.size(); i++) {
-                Bullet b = bullets.get(i);
+        var playerBullets = getBullets();
+
+        if (playerBullets != null) {
+            for (int i = 0; i < playerBullets.size(); i++) {
+                Bullet b = playerBullets.get(i);
                 b.update();
 
-                if (b.x < 0 || b.x > gp.screenWidth) {
-                    bullets.remove(b);
+                if (b.x < 0 || b.x > GamePanel.screenWidth) {
+                    playerBullets.remove(b);
+                    setBullets((ArrayList<Bullet>) playerBullets);
                     i--;
                 }
             }
@@ -66,45 +69,47 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyHandler.upPressed) {
-            this.direction = "up";
-            if (this.y > 0) {
-                this.y -= this.speed;
+        if (keyHandler.isUpPressed()) {
+            setDirection("up");
+            if (this.getY() > 0) {
+                this.setY(getY() - getSpeed());
             }
         }
-        if (keyHandler.downPressed) {
-            this.direction = "down";
-            if (this.y + gp.tileSize < gp.screenHeight) {
-                this.y += this.speed;
+        if (keyHandler.isDownPressed()) {
+            setDirection("down");
+            if (this.getY() + GamePanel.tileSize < GamePanel.screenHeight) {
+                this.setY(getY() + getSpeed());
             }
         }
-        if (keyHandler.leftPressed) {
-            this.direction = "left";
-            if (this.x > 0) {
-                this.x -= this.speed;
+        if (keyHandler.isLeftPressed()) {
+            setDirection("left");
+            if (this.getX() > 0) {
+                this.setX(getX() - getSpeed());
             }
         }
-        if (keyHandler.rightPressed) {
-            this.direction = "right";
-            if (this.x + gp.tileSize < gp.screenWidth) {
-                this.x += this.speed;
+        if (keyHandler.isRightPressed()) {
+            setDirection("right");
+            if (this.getX() + GamePanel.tileSize < GamePanel.screenWidth) {
+                this.setX(getX() + getSpeed());
             }
         }
-        if (keyHandler.spacePressed) {
+        if (keyHandler.isSpacePressed()) {
             shootCounter++;
             if (shootCounter > shootingRatio) {
-                bullets.add(new Bullet(gp, this, "right"));
+                getBullets().add(new Bullet(gp, this, getDirection()));
                 shootCounter = 0;
             }
         }
 
-        spriteCounter++;
+        int spriteCounter = getSpriteCounter();
+        int spriteNum = getSpriteNum();
+        setSpriteCounter( getSpriteCounter() + 1);
         if (spriteCounter > 10) {
             if (spriteNum == 1)
-                spriteNum = 2;
+                setSpriteNum(2);
             else if (spriteNum == 2)
-                spriteNum = 1;
-            spriteCounter = 0;
+                setSpriteNum(1);
+            setSpriteCounter(0);
         }
         updatePlayerBullets();
     }
@@ -112,11 +117,11 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
         BufferedImage img = null;
 
-        drawHealthBar(g2, gp.tileSize);
+        drawHealthBar(g2, GamePanel.tileSize);
 
-        switch (direction) {
-            case "up":
-            case "down":
+        int spriteNum = getSpriteNum();
+        switch (getDirection()) {
+            case "up", "down":
                 if (spriteNum == 1)
                     img = front1;
                 else if (spriteNum == 2)
@@ -144,13 +149,16 @@ public class Player extends Entity {
                 else if (spriteNum == 3)
                     img = right3;
                 break;
+            default:
+                break;
         }
+
+        var bullets = getBullets();
         if (bullets != null) {
             for (Bullet b: bullets) {
                 b.draw(g2);
             }
         }
-
-        g2.drawImage(img, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
     }
 }

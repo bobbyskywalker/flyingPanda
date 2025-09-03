@@ -4,32 +4,31 @@ import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.utils.CollissionChecker;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
-    public final int originalTileSize = 20;
-    final int scale = 3;
+    public static final int originalTileSize = 20;
+    static final int scale = 3;
 
-    public final int tileSize = originalTileSize * scale;
+    public static final int tileSize = originalTileSize * scale;
     static final int maxScreenCol = 16;
     static final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol;
-    public final int screenHeight = tileSize * maxScreenRow;
+    public static final int screenWidth = tileSize * maxScreenCol;
+    public static final int screenHeight = tileSize * maxScreenRow;
 
-    Background bg;
+    transient Background bg;
 
-    final int FPS = 60;
+    static final int FPS = 60;
 
-    static Thread gameThread;
+    transient Thread gameThread;
 
     static Controller keyHandler = new Controller();
 
-    Player player = new Player(keyHandler, this);
+    transient Player player = new Player(keyHandler, this);
 
-    static ArrayList<Eagle> eagles;
+    static ArrayList<Eagle> eagles = new ArrayList<>();
 
     public GamePanel() {
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
@@ -37,7 +36,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
-        eagles = new ArrayList<>();
         eagles.add(new Eagle(this));
     }
 
@@ -47,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        bg.update(this);
+        bg.update();
         player.update();
         for (Eagle e : eagles)
             e.update();
@@ -59,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        bg.draw(g2, this);
+        bg.draw(g2);
         player.draw(g2);
         for (Eagle e : eagles)
             e.draw(g2);
@@ -67,12 +65,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = (double) 1000000000 / FPS;
         double deltaTime = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
-        int drawCount = 0;
 
         while (gameThread != null) {
             currentTime = System.nanoTime();
@@ -83,12 +80,9 @@ public class GamePanel extends JPanel implements Runnable {
                 update();
                 repaint();
                 deltaTime--;
-                drawCount++;
             }
 
             if (timer > 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                drawCount = 0;
                 timer = 0;
             }
 

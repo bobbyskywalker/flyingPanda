@@ -3,10 +3,12 @@ package com.FlyingPanda.entity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Entity {
-    public int x, y;
-    public int speed;
+    private int x;
+    private int y;
+    private int speed;
 
     private int health = 100;
     private int maxHealth = 100;
@@ -14,19 +16,64 @@ public class Entity {
     private static final int HEALTH_BAR_WIDTH = 80;
     private static final int HEALTH_BAR_OFFSET_Y = 10;
 
-    public ArrayList<Bullet> bullets;
+    private ArrayList<Bullet> bullets;
     int shootingRatio;
     int shootCounter;
     private int shotDamage = 10;
 
     public BufferedImage front1, front2, front3, front4, front5, left1, left2, left3, right1, right2, right3;
-    public String direction;
+    private String direction;
 
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    private int spriteCounter = 0;
+    private int spriteNum = 1;
 
-    public ArrayList<Bullet> getBullets() {
-        return this.bullets;
+    // Add missing getters and setters
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public int getSpriteCounter() {
+        return spriteCounter;
+    }
+
+    public void setSpriteCounter(int spriteCounter) {
+        this.spriteCounter = spriteCounter;
+    }
+
+    public int getSpriteNum() {
+        return spriteNum;
+    }
+
+    public void setSpriteNum(int spriteNum) {
+        this.spriteNum = spriteNum;
     }
 
     public int getHealth() {
@@ -71,5 +118,13 @@ public class Entity {
 
     public void setShotDamage(int shotDamage) {
         this.shotDamage = shotDamage;
+    }
+
+    public List<Bullet> getBullets() {
+        return this.bullets;
+    }
+
+    public void setBullets(ArrayList<Bullet> bullets) {
+        this.bullets = bullets;
     }
 }

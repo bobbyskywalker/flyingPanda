@@ -5,7 +5,9 @@ import com.FlyingPanda.entity.Bullet;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.main.GamePanel;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class CollissionChecker {
 
@@ -19,25 +21,25 @@ public class CollissionChecker {
                 y1 + height1 > y2;
     }
 
-    /* player - enemy collision */
-    public static boolean checkEntityCollision(Player player, Eagle eagle, GamePanel gp) {
-        return isColliding(player.x, player.y, gp.tileSize, gp.tileSize,
-                eagle.x, eagle.y, gp.tileSize, gp.tileSize);
+    public static boolean checkEntityCollision(Player player, Eagle eagle) {
+        return isColliding(player.getX(), player.getY(), GamePanel.tileSize, GamePanel.tileSize,
+                eagle.getX(), eagle.getY(), GamePanel.tileSize, GamePanel.tileSize);
     }
 
-    /* entity bullet collision */
-    public static boolean checkBulletEntityCollision(Bullet bullet, int entityX, int entityY, GamePanel gp) {
-        return isColliding(bullet.x, bullet.y, gp.tileSize, gp.tileSize,
-                entityX, entityY, gp.tileSize, gp.tileSize);
+    public static boolean checkBulletEntityCollision(Bullet bullet, int entityX, int entityY) {
+        return isColliding(bullet.x, bullet.y, GamePanel.tileSize, GamePanel.tileSize,
+                entityX, entityY, GamePanel.tileSize, GamePanel.tileSize);
     }
 
     /* enemies hitting player */
-    public static void checkEnemyBulletsHitPlayer(ArrayList<Eagle> eagles, Player player, GamePanel gp) {
+    public static void checkEnemyBulletsHitPlayer(List<Eagle> eagles, Player player) {
         for (Eagle eagle : eagles) {
-            for (int i = 0; i < eagle.bullets.size(); i++) {
-                Bullet enemyBullet = eagle.bullets.get(i);
-                if (checkBulletEntityCollision(enemyBullet, player.x, player.y, gp)) {
-                    eagle.bullets.remove(i);
+            var eagleBullets = eagle.getBullets();
+            for (int i = 0; i < eagleBullets.size(); i++) {
+                Bullet enemyBullet = eagleBullets.get(i);
+                if (checkBulletEntityCollision(enemyBullet, player.getX(), player.getY())) {
+                    eagleBullets.remove(i);
+                    eagle.setBullets((ArrayList<Bullet>) eagleBullets);
                     i--;
                     player.setHealth(player.getHealth() - eagle.getShotDamage());
                 }
@@ -46,14 +48,16 @@ public class CollissionChecker {
     }
 
     /* player bullets hitting enemies */
-    public static void checkPlayerBulletsHitEnemies(Player player, ArrayList<Eagle> eagles, GamePanel gp) {
-        for (int bulletIndex = 0; bulletIndex < player.bullets.size(); bulletIndex++) {
-            Bullet playerBullet = player.bullets.get(bulletIndex);
+    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles) {
+        var playerBullets = player.getBullets();
+        for (int bulletIndex = 0; bulletIndex < playerBullets.size(); bulletIndex++) {
+            Bullet playerBullet = playerBullets.get(bulletIndex);
 
             for (int eagleIndex = 0; eagleIndex < eagles.size(); eagleIndex++) {
                 Eagle eagle = eagles.get(eagleIndex);
-                if (checkBulletEntityCollision(playerBullet, eagle.x, eagle.y, gp)) {
-                    player.bullets.remove(bulletIndex);
+                if (checkBulletEntityCollision(playerBullet, eagle.getX(), eagle.getY())) {
+                    playerBullets.remove(bulletIndex);
+                    player.setBullets((ArrayList<Bullet>) playerBullets);
                     bulletIndex--;
 
                     var processedEagle = eagles.get(eagleIndex);
@@ -68,8 +72,8 @@ public class CollissionChecker {
         }
     }
 
-    public static void checkAllCollisions(Player player, ArrayList<Eagle> eagles, GamePanel gp) {
-        checkEnemyBulletsHitPlayer(eagles, player, gp);
-        checkPlayerBulletsHitEnemies(player, eagles, gp);
+    public static void checkAllCollisions(Player player, List<Eagle> eagles) {
+        checkEnemyBulletsHitPlayer(eagles, player);
+        checkPlayerBulletsHitEnemies(player, eagles);
     }
 }
