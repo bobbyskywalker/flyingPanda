@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.Controller;
 import com.FlyingPanda.main.GamePanel;
 
@@ -68,10 +69,10 @@ public class Player extends Entity {
         }
     }
 
-    public void update() {
+    public void update(HUD hud) {
         if (keyHandler.isUpPressed()) {
             setDirection("up");
-            if (this.getY() > 0) {
+            if (this.getY() > hud.getHudHeight()) {
                 this.setY(getY() - getSpeed());
             }
         }

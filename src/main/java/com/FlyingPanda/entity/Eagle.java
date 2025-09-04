@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -14,17 +15,18 @@ import java.util.Random;
 public class Eagle extends Entity {
     GamePanel gp;
 
-    public Eagle(GamePanel gp) {
+    public Eagle(GamePanel gp, HUD hud) {
         this.gp = gp;
-        setDefaultValues();
+        setDefaultValues(hud);
         getEagleImage();
     }
 
-    public void setDefaultValues() {
+    public void setDefaultValues(HUD hud) {
         Random rand = new Random();
 
         this.setX(GamePanel.screenWidth);
-        this.setY(rand.nextInt(GamePanel.screenHeight - GamePanel.tileSize));
+        int availableHeight = GamePanel.screenHeight - hud.getHudHeight() - GamePanel.tileSize;
+        this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));
 
         setSpeed(1 + rand.nextInt(3));
         shootingRatio = 50;

@@ -11,7 +11,6 @@ public class HUD {
 
     private static final int hudHeight = 60;
     private static final int hudWidth = GamePanel.screenWidth;
-    Rectangle hudArea = new Rectangle(0, 0, hudWidth, hudHeight);
 
     public HUD() {
         score = 0;
@@ -50,6 +49,13 @@ public class HUD {
         g2.setFont(originalFont);
     }
 
+    public int getHudHeight() {
+        return hudHeight;
+    }
+
+    public int getHudWidth() {
+        return hudWidth;
+    }
 
     public int getScore() {
         return score;

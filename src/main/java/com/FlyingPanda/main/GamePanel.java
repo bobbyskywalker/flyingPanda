@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     static Controller keyHandler = new Controller();
 
     transient Player player = new Player(keyHandler, this);
-    transient HUD hud = new HUD();
+    public transient HUD hud = new HUD();
 
     static ArrayList<Eagle> eagles = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
-        eagles.add(new Eagle(this));
+        eagles.add(new Eagle(this, hud));
     }
 
     public void startGameThread() {
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         bg.update();
-        player.update();
+        player.update(hud);
         hud.update();
         for (Eagle e : eagles)
             e.update();
