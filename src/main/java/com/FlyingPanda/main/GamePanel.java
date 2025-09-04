@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (Eagle e : eagles)
             e.update();
 
-        CollissionChecker.checkAllCollisions(player, eagles);
+        CollissionChecker.checkAllCollisions(player, eagles, hud);
     }
 
     @Override
