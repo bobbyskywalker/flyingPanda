@@ -1,13 +1,6 @@
-player collision
+HUD, scoring, SFX
+One more enemy type
+Wave Mechanics
+Max enemy per map limit, define enemy spawn places
 
-enemies {
-    map collisions
-    bullets (enemy - player bullet collisions)
-    health
-}
-
-player - enemy bullet collision
-HUD, player health, scoring
-SFX
-
-Leaderboard server & database
+Leaderboard server & database (SPRING)

@@ -2,6 +2,7 @@ package com.FlyingPanda.main;
 
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
+import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.utils.CollissionChecker;
 
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     static Controller keyHandler = new Controller();
 
     transient Player player = new Player(keyHandler, this);
+    transient HUD hud = new HUD();
 
     static ArrayList<Eagle> eagles = new ArrayList<>();
 
@@ -47,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         bg.update();
         player.update();
+        hud.update();
         for (Eagle e : eagles)
             e.update();
 
@@ -61,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
         for (Eagle e : eagles)
             e.draw(g2);
+        hud.renderHUD(g2);
     }
 
     @Override

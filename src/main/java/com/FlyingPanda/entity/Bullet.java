@@ -15,6 +15,8 @@ public class Bullet {
     public int x, y;
     public int speed = 5;
 
+    private String type;
+
     public BufferedImage left;
     public BufferedImage right;
     public String direction;
@@ -25,14 +27,20 @@ public class Bullet {
         this.direction = direction;
         this.x = owner.getX();
         this.y = owner.getY();
-
+        this.type = "bamboo";
         getBulletImage();
     }
 
     public void getBulletImage() {
         try {
-            left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
-            right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
+            switch (type) {
+                case "bamboo":
+                    left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
+                    right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
+                    break;
+                default:
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
