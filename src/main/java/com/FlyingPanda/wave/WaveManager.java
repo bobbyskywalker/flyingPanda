@@ -38,6 +38,7 @@ public class WaveManager {
         waveNum++;
         numEliminatedEnemies = 0;
         hud.setWaveNumber(waveNum);
+        numEagles = 0;
         numEnemiesToEliminate += 2;
         // TODO:
         // display new wave info popup
