@@ -25,7 +25,7 @@ public class HUD {
         Font originalFont = g2.getFont();
 
         // background
-        g2.setColor(new Color(0, 0, 0, 150));
+        g2.setColor(new Color(40, 0, 80, 150));
         g2.fillRect(0, 0, hudWidth, 60);
 
         // border
@@ -33,17 +33,30 @@ public class HUD {
         g2.drawRect(0, 0, hudWidth - 1, 60 - 1);
 
         // font
-        g2.setFont(new Font("Arial", Font.BOLD, 18));
-        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Monospaced", Font.BOLD, 18));
+        g2.setColor(Color.PINK);
 
-        // score
-        g2.drawString("Score: " + score, 20, 30);
+        int textY = 35;
 
-        // lives
-        g2.drawString("Lives: " + lives, 200, 30);
+        String scoreText = "Score: " + score;
+        String livesText = "Lives: " + lives;
+        String waveText = "Wave: " + waveNumber;
 
-        // wave
-        g2.drawString("Wave: " + waveNumber, 380, 30);
+        FontMetrics fm = g2.getFontMetrics();
+
+        int scoreWidth = fm.stringWidth(scoreText);
+        int livesWidth = fm.stringWidth(livesText);
+        int waveWidth = fm.stringWidth(waveText);
+
+        int sectionWidth = hudWidth / 3;
+
+        int scoreX = (sectionWidth - scoreWidth) / 2;
+        int livesX = sectionWidth + (sectionWidth - livesWidth) / 2;
+        int waveX = (2 * sectionWidth) + (sectionWidth - waveWidth) / 2;
+
+        g2.drawString(scoreText, scoreX, textY);
+        g2.drawString(livesText, livesX, textY);
+        g2.drawString(waveText, waveX, textY);
 
         g2.setColor(originalColor);
         g2.setFont(originalFont);
