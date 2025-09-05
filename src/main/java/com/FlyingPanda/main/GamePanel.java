@@ -4,6 +4,7 @@ import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.utils.CollissionChecker;
+import com.FlyingPanda.wave.WaveManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -28,9 +29,9 @@ public class GamePanel extends JPanel implements Runnable {
     static Controller keyHandler = new Controller();
 
     transient Player player = new Player(keyHandler, this);
-    public transient HUD hud = new HUD();
 
-    static ArrayList<Eagle> eagles = new ArrayList<>();
+    public transient HUD hud = new HUD();
+    public transient WaveManager waveManager = new WaveManager(this, hud);
 
     public GamePanel() {
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
@@ -38,7 +39,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
-        eagles.add(new Eagle(this, hud));
     }
 
     public void startGameThread() {
@@ -50,10 +50,8 @@ public class GamePanel extends JPanel implements Runnable {
         bg.update();
         player.update(hud);
         hud.update();
-        for (Eagle e : eagles)
-            e.update();
-
-        CollissionChecker.checkAllCollisions(player, eagles, hud);
+        waveManager.updateCurrentWave();
+        CollissionChecker.checkAllCollisions(player, waveManager.getEagles(), hud, waveManager);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         bg.draw(g2);
         player.draw(g2);
-        for (Eagle e : eagles)
+        for (Eagle e : waveManager.getEagles())
             e.draw(g2);
         hud.renderHUD(g2);
     }

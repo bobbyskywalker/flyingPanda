@@ -6,6 +6,7 @@ import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
+import com.FlyingPanda.wave.WaveManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class CollissionChecker {
     }
 
     /* player bullets hitting enemies */
-    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, HUD hud) {
+    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, HUD hud, WaveManager wm) {
         var playerBullets = player.getBullets();
         for (int bulletIndex = 0; bulletIndex < playerBullets.size(); bulletIndex++) {
             Bullet playerBullet = playerBullets.get(bulletIndex);
@@ -66,6 +67,7 @@ public class CollissionChecker {
                     processedEagle.setHealth(processedEagleHealth - player.getShotDamage());
 
                     if (processedEagle.getHealth() <= 0) {
+                        wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
                         eagles.remove(eagleIndex);
                         hud.setScore(hud.getScore() + 10);
                     }
@@ -75,8 +77,8 @@ public class CollissionChecker {
         }
     }
 
-    public static void checkAllCollisions(Player player, List<Eagle> eagles, HUD hud) {
+    public static void checkAllCollisions(Player player, List<Eagle> eagles, HUD hud, WaveManager wm) {
         checkEnemyBulletsHitPlayer(eagles, player);
-        checkPlayerBulletsHitEnemies(player, eagles, hud);
+        checkPlayerBulletsHitEnemies(player, eagles, hud, wm);
     }
 }
