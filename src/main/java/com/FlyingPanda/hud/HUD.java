@@ -72,7 +72,7 @@ public class HUD {
             long timeRemaining = waveInfoDuration - (currentTime - waveInfoStartTime);
 
             Font originalFont = g2.getFont();
-            g2.setFont(new Font("Arial", Font.BOLD, 32));
+            g2.setFont(new Font("Monospaced", Font.BOLD, 26));
             FontMetrics fm = g2.getFontMetrics();
 
             g2.setColor(new Color(0, 0, 0, 150));

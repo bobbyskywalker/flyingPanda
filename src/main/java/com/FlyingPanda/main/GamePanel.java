@@ -4,6 +4,8 @@ import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.hud.HUD;
+import com.FlyingPanda.menu.GameOverMenu;
+import com.FlyingPanda.menu.MainMenu;
 import com.FlyingPanda.utils.CollissionChecker;
 import com.FlyingPanda.wave.WaveManager;
 
@@ -11,6 +13,8 @@ import javax.swing.JPanel;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
+    private volatile boolean running;
+
     public static final int originalTileSize = 20;
     static final int scale = 3;
 
@@ -33,7 +37,10 @@ public class GamePanel extends JPanel implements Runnable {
     public transient HUD hud = new HUD();
     public transient WaveManager waveManager = new WaveManager(this, hud);
 
-    public GamePanel() {
+    public transient MainMenu mainMenu;
+
+    public GamePanel(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setDoubleBuffered(true);
@@ -42,16 +49,42 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGameThread() {
+        running = true;
         gameThread = new Thread(this);
         gameThread.start();
     }
 
     private void stopGameThread() {
+        running = false;
+        Thread t = gameThread;
         gameThread = null;
+        if (t != null && t != Thread.currentThread()) {
+            try { t.join(150); } catch (InterruptedException ignored) {}
+        }
     }
 
     public void gameOver() {
         stopGameThread();
+        GameOverMenu gameOverPanel = new GameOverMenu(hud.getScore(), this);
+        gameOverPanel.showGameOverScreen(mainMenu);
+    }
+
+    public void dispose() {
+        this.removeKeyListener(keyHandler);
+
+        if (waveManager != null)
+            waveManager.dispose();
+        if (player != null)
+            player.dispose();
+        if (hud != null)
+            hud.dispose();
+
+        player = null;
+        waveManager = null;
+        hud = null;
+        bg = null;
+
+        setFocusable(false);
     }
 
     public void update() {
@@ -59,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.update(hud);
         hud.update();
         waveManager.updateCurrentWave();
-        CollissionChecker.checkAllCollisions(player, waveManager.getEagles(), waveManager.getBees(), hud, waveManager);
+        CollissionChecker.checkAllCollisions(player, waveManager.getEagles(), waveManager.getBees(), hud, waveManager, this);
     }
 
     @Override
@@ -96,8 +129,16 @@ public class GamePanel extends JPanel implements Runnable {
                 deltaTime--;
             }
 
-            if (timer > 1000000000)
+            if (timer > 1_000_000_000)
                 timer = 0;
         }
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 }

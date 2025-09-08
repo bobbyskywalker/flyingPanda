@@ -15,6 +15,7 @@ public class MainMenu extends JPanel implements KeyListener {
     private String[] menuOptions = {"Start Game", "How to Play", "Leaderboard", "Exit Game"};
     private int selectedOption = 0;
 
+    private String fontName = "Arial";
     private Font titleFont;
     private Font buttonFont;
 
@@ -29,8 +30,8 @@ public class MainMenu extends JPanel implements KeyListener {
         setFocusable(true);
         addKeyListener(this);
 
-        titleFont = new Font("Arial", Font.BOLD, 48);
-        buttonFont = new Font("Arial", Font.BOLD, 24);
+        titleFont = new Font(fontName, Font.BOLD, 48);
+        buttonFont = new Font(fontName, Font.BOLD, 24);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class MainMenu extends JPanel implements KeyListener {
     }
 
     private void drawInstructions(Graphics2D g2) {
-        g2.setFont(new Font("Arial", Font.PLAIN, 16));
+        g2.setFont(new Font(fontName, Font.PLAIN, 16));
         g2.setColor(new Color(180, 180, 180));
 
         String instructions = "Use UP/DOWN arrows to navigate, ENTER to select";
@@ -146,6 +147,9 @@ public class MainMenu extends JPanel implements KeyListener {
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);
                 break;
+
+            default:
+                break;
         }
     }
 
@@ -163,11 +167,13 @@ public class MainMenu extends JPanel implements KeyListener {
             case 3:
                 exitGame();
                 break;
+            default:
+                break;
         }
     }
 
     private void startGame() {
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
         parentFrame.remove(this);
         parentFrame.add(gamePanel);
         parentFrame.revalidate();
@@ -242,8 +248,8 @@ public class MainMenu extends JPanel implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) { /* Unused override */ }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) { /* Unused too lol */ }
 }
