@@ -1,5 +1,7 @@
 package com.FlyingPanda.main;
 
+import com.FlyingPanda.menu.MainMenu;
+
 import javax.swing.*;
 
 public class Main {
@@ -9,14 +11,13 @@ public class Main {
         window.setResizable(false);
         window.setTitle("Flying Panda");
 
-        GamePanel panel = new GamePanel();
-        window.add(panel);
-
+        MainMenu mainMenu = new MainMenu(window);
+        window.add(mainMenu);
         window.pack();
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        panel.startGameThread();
+        mainMenu.requestFocus();
     }
 }
