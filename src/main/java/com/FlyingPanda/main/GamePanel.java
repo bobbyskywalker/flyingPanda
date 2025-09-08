@@ -46,6 +46,14 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
+    private void stopGameThread() {
+        gameThread = null;
+    }
+
+    public void gameOver() {
+        stopGameThread();
+    }
+
     public void update() {
         bg.update();
         player.update(hud);

@@ -9,6 +9,7 @@ import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 import com.FlyingPanda.wave.WaveManager;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class CollissionChecker {
     }
 
     /* enemies hitting player */
-    public static void checkEnemyBulletsHitPlayer(List<Eagle> eagles, List<Bee> bees, Player player) {
+    public static void checkEnemyBulletsHitPlayer(List<Eagle> eagles, List<Bee> bees, Player player, GamePanel gp) {
         List<Entity> allEnemies = mergeEnemyLists(eagles, bees);
 
         for (Entity enemy : allEnemies) {
@@ -57,8 +58,7 @@ public class CollissionChecker {
                             player.setHealth(100);
                             player.setLives(player.getLives() - 1);
                         } else {
-                            // game over
-                            player.setHealth(100);
+                            gp.gameOver();
                         }
                     }
                 }
@@ -117,8 +117,8 @@ public class CollissionChecker {
         }
     }
 
-    public static void checkAllCollisions(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, WaveManager wm) {
-        checkEnemyBulletsHitPlayer(eagles, bees, player);
+    public static void checkAllCollisions(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, WaveManager wm, GamePanel gp) {
+        checkEnemyBulletsHitPlayer(eagles, bees, player, gp);
         checkPlayerBulletsHitEnemies(player, eagles, bees, hud, wm);
     }
 }
