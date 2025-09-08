@@ -1,8 +1,9 @@
-
 package com.FlyingPanda.utils;
 
 import com.FlyingPanda.entity.Bullet;
+import com.FlyingPanda.entity.Entity;
 import com.FlyingPanda.entity.Eagle;
+import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
@@ -23,38 +24,48 @@ public class CollissionChecker {
                 y1 + height1 > y2;
     }
 
-    public static boolean checkEntityCollision(Player player, Eagle eagle) {
-        return isColliding(player.getX(), player.getY(), GamePanel.tileSize, GamePanel.tileSize,
-                eagle.getX(), eagle.getY(), GamePanel.tileSize, GamePanel.tileSize);
-    }
-
     public static boolean checkBulletEntityCollision(Bullet bullet, int entityX, int entityY) {
         return isColliding(bullet.x, bullet.y, GamePanel.tileSize, GamePanel.tileSize,
                 entityX, entityY, GamePanel.tileSize, GamePanel.tileSize);
     }
 
+    /* enemy list merger for polymorphic checks */
+    private static List<Entity> mergeEnemyLists(List<Eagle> eagles, List<Bee> bees) {
+        List<Entity> allEnemies = new ArrayList<>();
+        allEnemies.addAll(eagles);
+        allEnemies.addAll(bees);
+        return allEnemies;
+    }
+
     /* enemies hitting player */
-    public static void checkEnemyBulletsHitPlayer(List<Eagle> eagles, Player player) {
-        for (Eagle eagle : eagles) {
-            var eagleBullets = eagle.getBullets();
-            for (int i = 0; i < eagleBullets.size(); i++) {
-                Bullet enemyBullet = eagleBullets.get(i);
+    public static void checkEnemyBulletsHitPlayer(List<Eagle> eagles, List<Bee> bees, Player player) {
+        List<Entity> allEnemies = mergeEnemyLists(eagles, bees);
+
+        for (Entity enemy : allEnemies) {
+            var enemyBullets = enemy.getBullets();
+            if (enemyBullets == null) continue;
+
+            for (int i = 0; i < enemyBullets.size(); i++) {
+                Bullet enemyBullet = enemyBullets.get(i);
                 if (checkBulletEntityCollision(enemyBullet, player.getX(), player.getY())) {
-                    eagleBullets.remove(i);
-                    eagle.setBullets((ArrayList<Bullet>) eagleBullets);
+                    enemyBullets.remove(i);
+                    enemy.setBullets((ArrayList<Bullet>) enemyBullets);
                     i--;
-                    player.setHealth(player.getHealth() - eagle.getShotDamage());
+                    player.setHealth(player.getHealth() - enemy.getShotDamage());
                 }
             }
         }
     }
 
     /* player bullets hitting enemies */
-    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, HUD hud, WaveManager wm) {
+    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, WaveManager wm) {
         var playerBullets = player.getBullets();
+
         for (int bulletIndex = 0; bulletIndex < playerBullets.size(); bulletIndex++) {
             Bullet playerBullet = playerBullets.get(bulletIndex);
+            boolean hitFound = false;
 
+            // collision with eagles
             for (int eagleIndex = 0; eagleIndex < eagles.size(); eagleIndex++) {
                 Eagle eagle = eagles.get(eagleIndex);
                 if (checkBulletEntityCollision(playerBullet, eagle.getX(), eagle.getY())) {
@@ -62,23 +73,43 @@ public class CollissionChecker {
                     player.setBullets((ArrayList<Bullet>) playerBullets);
                     bulletIndex--;
 
-                    var processedEagle = eagles.get(eagleIndex);
-                    int processedEagleHealth = processedEagle.getHealth();
-                    processedEagle.setHealth(processedEagleHealth - player.getShotDamage());
+                    eagle.setHealth(eagle.getHealth() - player.getShotDamage());
 
-                    if (processedEagle.getHealth() <= 0) {
+                    if (eagle.getHealth() <= 0) {
                         wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
                         eagles.remove(eagleIndex);
                         hud.setScore(hud.getScore() + 10);
                     }
+                    hitFound = true;
                     break;
+                }
+            }
+
+            // colission with bees
+            if (!hitFound) {
+                for (int beeIndex = 0; beeIndex < bees.size(); beeIndex++) {
+                    Bee bee = bees.get(beeIndex);
+                    if (checkBulletEntityCollision(playerBullet, bee.getX(), bee.getY())) {
+                        playerBullets.remove(bulletIndex);
+                        player.setBullets((ArrayList<Bullet>) playerBullets);
+                        bulletIndex--;
+
+                        bee.setHealth(bee.getHealth() - player.getShotDamage());
+
+                        if (bee.getHealth() <= 0) {
+                            wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
+                            bees.remove(beeIndex);
+                            hud.setScore(hud.getScore() + 15);
+                        }
+                        break;
+                    }
                 }
             }
         }
     }
 
-    public static void checkAllCollisions(Player player, List<Eagle> eagles, HUD hud, WaveManager wm) {
-        checkEnemyBulletsHitPlayer(eagles, player);
-        checkPlayerBulletsHitEnemies(player, eagles, hud, wm);
+    public static void checkAllCollisions(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, WaveManager wm) {
+        checkEnemyBulletsHitPlayer(eagles, bees, player);
+        checkPlayerBulletsHitEnemies(player, eagles, bees, hud, wm);
     }
 }

@@ -1,5 +1,6 @@
 package com.FlyingPanda.main;
 
+import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.hud.HUD;
@@ -8,7 +9,6 @@ import com.FlyingPanda.wave.WaveManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public static final int originalTileSize = 20;
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.update(hud);
         hud.update();
         waveManager.updateCurrentWave();
-        CollissionChecker.checkAllCollisions(player, waveManager.getEagles(), hud, waveManager);
+        CollissionChecker.checkAllCollisions(player, waveManager.getEagles(), waveManager.getBees(), hud, waveManager);
     }
 
     @Override
@@ -62,6 +62,8 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
         for (Eagle e : waveManager.getEagles())
             e.draw(g2);
+        for (Bee b: waveManager.getBees())
+            b.draw(g2);
         hud.renderHUD(g2);
         hud.renderWaveCompletionInfo(g2);
     }

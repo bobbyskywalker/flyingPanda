@@ -1,5 +1,6 @@
 package com.FlyingPanda.wave;
 
+import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class WaveManager {
     private int waveNum = 1;
     private int numEagles = 0;
+    private int numBees = 0;
 
     private int numEliminatedEnemies = 0;
     private int numEnemiesToEliminate = 5;
@@ -20,6 +22,7 @@ public class WaveManager {
     private boolean waveEnd = false;
 
     private ArrayList<Eagle> eagles = new ArrayList<>();
+    private ArrayList<Bee> bees = new ArrayList<>();
 
     private HUD hud;
     private GamePanel gp;
@@ -29,13 +32,24 @@ public class WaveManager {
             eagles.add(new Eagle(gp, hud));
     }
 
+    private void spawnBees() {
+        for (int i = 0; i < numBees; i++)
+            bees.add(new Bee(gp, hud));
+    }
+
     private void updateEnemies() {
         if (eagles.isEmpty() && !waveEnd) {
             numEagles++;
             spawnEagles();
         }
+        if (bees.isEmpty() && !waveEnd) {
+            numBees++;
+            spawnBees();
+        }
         for (Eagle e : eagles)
             e.update();
+        for (Bee b : bees)
+            b.update();
     }
 
     private void setupNewWave() {
@@ -43,6 +57,7 @@ public class WaveManager {
         numEliminatedEnemies = 0;
         hud.setWaveNumber(waveNum);
         numEagles = 0;
+        numBees = 0;
         numEnemiesToEliminate += 2;
 
         waitingForNextWave = true;
@@ -53,7 +68,7 @@ public class WaveManager {
     }
 
     public void updateCurrentWave() {
-        if (numEliminatedEnemies >= numEnemiesToEliminate && eagles.isEmpty() && !waveEnd) {
+        if (numEliminatedEnemies >= numEnemiesToEliminate && bees.isEmpty() && eagles.isEmpty() && !waveEnd) {
             waveEnd = true;
             setupNewWave();
         } else if (waitingForNextWave) {
@@ -75,6 +90,10 @@ public class WaveManager {
 
     public ArrayList<Eagle> getEagles() {
         return this.eagles;
+    }
+
+    public ArrayList<Bee> getBees() {
+        return this.bees;
     }
 
     public int getNumEliminatedEnemies() {
