@@ -117,12 +117,23 @@ public class MainMenu extends JPanel implements KeyListener {
         g2.setColor(new Color(180, 180, 180));
 
         String instructions = "Use UP/DOWN arrows to navigate, ENTER to select";
+        String signature   = "Created by agarbacz";
+        String version     = "Flying Panda v1.0 (2025)";
         FontMetrics fm = g2.getFontMetrics();
-        int textWidth = fm.stringWidth(instructions);
-        int textX = (getWidth() - textWidth) / 2;
-        int textY = getHeight() - 50;
+        int instructionsWidth = fm.stringWidth(instructions);
+        int signatureWidth = fm.stringWidth(signature);
+        int versionWidth = fm.stringWidth(version);
+        int genWidth = getWidth();
 
-        g2.drawString(instructions, textX, textY);
+        int instructionsTextX = (genWidth - instructionsWidth) / 2;
+        int sigTextX = (genWidth - signatureWidth) / 2;
+        int versionX = (genWidth - versionWidth) / 2;
+        int textY = getHeight() - 60;
+
+        g2.drawString(instructions, instructionsTextX, textY - 80);
+        g2.setColor(Color.WHITE);
+        g2.drawString(signature, sigTextX, textY - 20);
+        g2.drawString(version, versionX, textY);
     }
 
     @Override

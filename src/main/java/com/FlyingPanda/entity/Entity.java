@@ -43,6 +43,26 @@ public class Entity {
         g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
     }
 
+    public void drawHealthBar(Graphics2D g2, int entityWidth) {
+        if (health <= 0) return;
+
+        int healthBarX = x + (entityWidth - HEALTH_BAR_WIDTH) / 2;
+        int healthBarY = y - HEALTH_BAR_OFFSET_Y - HEALTH_BAR_HEIGHT;
+
+        float healthPercentage = (float) health / maxHealth;
+        int currentHealthWidth = (int) (HEALTH_BAR_WIDTH * healthPercentage);
+
+        g2.setColor(Color.RED);
+        g2.fillRect(healthBarX, healthBarY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
+
+        g2.setColor(Color.GREEN);
+        g2.fillRect(healthBarX, healthBarY, currentHealthWidth, HEALTH_BAR_HEIGHT);
+
+        g2.setColor(Color.BLACK);
+        g2.setStroke(new BasicStroke(1));
+        g2.drawRect(healthBarX, healthBarY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
+    }
+
     /* Accessors */
     public int getX() {
         return x;
@@ -106,26 +126,6 @@ public class Entity {
 
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
-    }
-
-    public void drawHealthBar(Graphics2D g2, int entityWidth) {
-        if (health <= 0) return;
-
-        int healthBarX = x + (entityWidth - HEALTH_BAR_WIDTH) / 2;
-        int healthBarY = y - HEALTH_BAR_OFFSET_Y - HEALTH_BAR_HEIGHT;
-
-        float healthPercentage = (float) health / maxHealth;
-        int currentHealthWidth = (int) (HEALTH_BAR_WIDTH * healthPercentage);
-
-        g2.setColor(Color.RED);
-        g2.fillRect(healthBarX, healthBarY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
-
-        g2.setColor(Color.GREEN);
-        g2.fillRect(healthBarX, healthBarY, currentHealthWidth, HEALTH_BAR_HEIGHT);
-
-        g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(1));
-        g2.drawRect(healthBarX, healthBarY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
     }
 
     public int getShotDamage() {

@@ -5,7 +5,6 @@ import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class WaveManager {

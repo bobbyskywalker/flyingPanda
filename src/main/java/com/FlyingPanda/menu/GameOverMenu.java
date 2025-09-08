@@ -23,7 +23,7 @@ public class GameOverMenu extends JPanel {
 
         if (choice == JOptionPane.YES_OPTION) {
             playerName = JOptionPane.showInputDialog(this, gameOverText, "Game Over", JOptionPane.PLAIN_MESSAGE);
-            /* PLACEHOLDER, POST THE SCORE ON SERVER */
+            /* PLACEHOLDER, POST THE SCORE TO SERVER */
         }
         mainMenu.returnToMenu();
         gp.dispose();
