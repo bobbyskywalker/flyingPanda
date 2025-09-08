@@ -9,6 +9,8 @@ public class Controller implements KeyListener {
     private boolean leftPressed;
     private boolean rightPressed;
     private boolean spacePressed;
+    private boolean yPressed;
+    private boolean nPressed;
 
     @Override
     public void keyTyped(KeyEvent e) { /* Unused method */ }
@@ -32,6 +34,15 @@ public class Controller implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             spacePressed = true;
         }
+        if (code == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+        if (code == KeyEvent.VK_Y) {
+            yPressed = true;
+        }
+        if (code == KeyEvent.VK_N) {
+            nPressed = true;
+        }
     }
 
     @Override
@@ -53,6 +64,28 @@ public class Controller implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             spacePressed = false;
         }
+        if (code == KeyEvent.VK_Y) {
+            yPressed = false;
+        }
+        if (code == KeyEvent.VK_N) {
+            nPressed = false;
+        }
+    }
+
+    public boolean isYPressed() {
+        return yPressed;
+    }
+
+    public void setYPressed(boolean yPressed) {
+        this.yPressed = yPressed;
+    }
+
+    public boolean isNPressed() {
+        return nPressed;
+    }
+
+    public void setNPressed(boolean nPressed) {
+        this.nPressed = nPressed;
     }
 
     public boolean isUpPressed() {
