@@ -38,13 +38,18 @@ public class WaveManager {
     }
 
     private void updateEnemies() {
-        if (eagles.isEmpty() && !waveEnd) {
-            numEagles++;
-            spawnEagles();
-        }
-        if (bees.isEmpty() && !waveEnd) {
-            numBees++;
-            spawnBees();
+        if (!waveEnd) {
+            if (eagles.isEmpty() && bees.isEmpty()) {
+                if (numEagles == 6)
+                    numEagles = 0;
+                numEagles++;
+                spawnEagles();
+                if (numBees == 6)
+                    numBees = 0;
+                if (waveNum % 2 == 0)
+                    numBees++;
+                spawnBees();
+            }
         }
         for (Eagle e : eagles)
             e.update();

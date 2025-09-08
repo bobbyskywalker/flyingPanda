@@ -28,8 +28,8 @@ public class Bee extends Entity {
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));
 
         setSpeed(1 + rand.nextInt(3));
-        shootingRatio = 20;
-        setShotDamage(10);
+        shootingRatio = 60;
+        setShotDamage(5);
         setDirection("left");
         setBullets(new ArrayList<>());
     }
@@ -91,6 +91,7 @@ public class Bee extends Entity {
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
             bullets.add(new Bullet(gp, this, "left"));
+            bullets.add(new Bullet(gp, this, "right"));
             setBullets(bullets);
             shootCounter = 0;
         }

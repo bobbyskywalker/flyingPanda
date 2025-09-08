@@ -78,7 +78,7 @@ public class CollissionChecker {
                     if (eagle.getHealth() <= 0) {
                         wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
                         eagles.remove(eagleIndex);
-                        hud.setScore(hud.getScore() + 10);
+                        hud.setScore(hud.getScore() + 30);
                     }
                     hitFound = true;
                     break;
@@ -99,7 +99,7 @@ public class CollissionChecker {
                         if (bee.getHealth() <= 0) {
                             wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
                             bees.remove(beeIndex);
-                            hud.setScore(hud.getScore() + 15);
+                            hud.setScore(hud.getScore() + 50);
                         }
                         break;
                     }
