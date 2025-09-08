@@ -93,6 +93,15 @@ public class WaveManager {
         this.hud = hud;
     }
 
+    public void dispose() {
+        eagles.clear();
+        bees.clear();
+        eagles = null;
+        bees = null;
+        hud = null;
+        gp = null;
+    }
+
     public ArrayList<Eagle> getEagles() {
         return this.eagles;
     }

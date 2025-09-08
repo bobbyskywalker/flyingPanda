@@ -72,12 +72,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void dispose() {
         this.removeKeyListener(keyHandler);
 
+        if (keyHandler != null)
+            keyHandler.reset();
         if (waveManager != null)
             waveManager.dispose();
         if (player != null)
             player.dispose();
-        if (hud != null)
-            hud.dispose();
 
         player = null;
         waveManager = null;
@@ -132,13 +132,5 @@ public class GamePanel extends JPanel implements Runnable {
             if (timer > 1_000_000_000)
                 timer = 0;
         }
-    }
-
-    public boolean isRunning() {
-        return running;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
     }
 }

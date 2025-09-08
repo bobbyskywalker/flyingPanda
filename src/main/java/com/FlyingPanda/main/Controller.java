@@ -72,6 +72,16 @@ public class Controller implements KeyListener {
         }
     }
 
+    public void reset() {
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+        spacePressed = false;
+        yPressed = false;
+        nPressed = false;
+    }
+
     public boolean isYPressed() {
         return yPressed;
     }

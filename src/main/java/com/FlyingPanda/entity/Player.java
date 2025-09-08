@@ -24,6 +24,13 @@ public class Player extends Entity {
         getPlayerImage();
     }
 
+    public void dispose() {
+        this.gp = null;
+        this.keyHandler = null;
+        this.getBullets().clear();
+        front1 = front2 = front3 = front4 = front5 = left1 = left2 = left3 = right1 = right2 = right3 = null;
+    }
+
     public void setDefaultValues() {
         setX(100);
         setY(100);
@@ -116,6 +123,7 @@ public class Player extends Entity {
         updatePlayerBullets();
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage img = null;
 

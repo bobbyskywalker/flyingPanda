@@ -20,15 +20,14 @@ public class GameOverMenu extends JPanel {
     public void showGameOverScreen(MainMenu mainMenu) {
         String gameOverText = "GAME OVER!\n Do you want to submit the score to the leaderboard?";
         int choice = JOptionPane.showConfirmDialog(this, gameOverText, "Game Over", JOptionPane.YES_NO_OPTION);
+
         if (choice == JOptionPane.YES_OPTION) {
             playerName = JOptionPane.showInputDialog(this, gameOverText, "Game Over", JOptionPane.PLAIN_MESSAGE);
             /* PLACEHOLDER, POST THE SCORE ON SERVER */
-            this.gp = null;
-            mainMenu.returnToMenu();
-        } else {
-            this.gp = null;
-            mainMenu.returnToMenu();
         }
+        mainMenu.returnToMenu();
+        gp.dispose();
+        this.gp = null;
     }
 
     public String getPlayerName() {
