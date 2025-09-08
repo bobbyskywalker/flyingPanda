@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
             e.draw(g2);
         for (Bee b: waveManager.getBees())
             b.draw(g2);
-        hud.renderHUD(g2);
+        hud.renderHUD(g2, player.getLives());
         hud.renderWaveCompletionInfo(g2);
     }
 

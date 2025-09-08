@@ -52,6 +52,15 @@ public class CollissionChecker {
                     enemy.setBullets((ArrayList<Bullet>) enemyBullets);
                     i--;
                     player.setHealth(player.getHealth() - enemy.getShotDamage());
+                    if (player.getHealth() <= 0) {
+                        if (player.getLives() > 0) {
+                            player.setHealth(100);
+                            player.setLives(player.getLives() - 1);
+                        } else {
+                            // game over
+                            player.setHealth(100);
+                        }
+                    }
                 }
             }
         }

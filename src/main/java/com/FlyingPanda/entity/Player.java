@@ -14,6 +14,7 @@ import java.util.Objects;
 public class Player extends Entity {
     GamePanel gp;
     Controller keyHandler;
+    private int lives = 3;
 
     public Player(Controller keyH, GamePanel gp) {
         this.gp = gp;
@@ -161,5 +162,13 @@ public class Player extends Entity {
             }
         }
         g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 }

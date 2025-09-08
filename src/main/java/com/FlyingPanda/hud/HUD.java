@@ -6,7 +6,6 @@ import java.awt.*;
 
 public class HUD {
     private int score;
-    private int lives;
     private int waveNumber;
 
     private boolean showingWaveCompletion = false;
@@ -20,13 +19,12 @@ public class HUD {
 
     public HUD() {
         score = 0;
-        lives = 3;
         waveNumber = 1;
     }
 
     public void update() { }
 
-    public void renderHUD(Graphics2D g2) {
+    public void renderHUD(Graphics2D g2, int playerLives) {
         Color originalColor = g2.getColor();
         Font originalFont = g2.getFont();
 
@@ -45,7 +43,7 @@ public class HUD {
         int textY = 35;
 
         String scoreText = "Score: " + score;
-        String livesText = "Lives: " + lives;
+        String livesText = "Lives: " + playerLives;
         String waveText = "Wave: " + waveNumber;
 
         FontMetrics fm = g2.getFontMetrics();
@@ -129,14 +127,6 @@ public class HUD {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public void setLives(int lives) {
-        this.lives = lives;
     }
 
     public int getWaveNumber() {
