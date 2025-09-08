@@ -1,5 +1,7 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.main.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -27,7 +29,21 @@ public class Entity {
     private int spriteCounter = 0;
     private int spriteNum = 1;
 
-    // Add missing getters and setters
+    public void draw(Graphics2D g2) {
+        BufferedImage img = (this.getSpriteNum() == 1) ? front1 : front2;
+
+        drawHealthBar(g2, GamePanel.tileSize);
+
+        var bullets = getBullets();
+        if (bullets != null) {
+            for (Bullet b: bullets) {
+                b.draw(g2);
+            }
+        }
+        g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
+    }
+
+    /* Accessors */
     public int getX() {
         return x;
     }

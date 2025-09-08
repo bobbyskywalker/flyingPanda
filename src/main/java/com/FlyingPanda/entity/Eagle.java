@@ -96,19 +96,4 @@ public class Eagle extends Entity {
         }
         updateEagleBullets();
     }
-
-
-    public void draw(Graphics2D g2) {
-        BufferedImage img = (this.getSpriteNum() == 1) ? front1 : front2;
-
-        drawHealthBar(g2, GamePanel.tileSize);
-
-        var bullets = getBullets();
-        if (bullets != null) {
-            for (Bullet b: bullets) {
-                b.draw(g2);
-            }
-        }
-        g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
-    }
 }
