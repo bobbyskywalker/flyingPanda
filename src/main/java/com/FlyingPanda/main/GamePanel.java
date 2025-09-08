@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (Eagle e : waveManager.getEagles())
             e.draw(g2);
         hud.renderHUD(g2);
+        hud.renderWaveCompletionInfo(g2);
     }
 
     @Override

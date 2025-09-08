@@ -13,6 +13,10 @@ public class WaveManager {
 
     private int numEliminatedEnemies = 0;
     private int numEnemiesToEliminate = 5;
+
+    private static final long WAVE_DELAY_MS = 5000;
+    private long waveEndTime = 0;
+    private boolean waitingForNextWave = false;
     private boolean waveEnd = false;
 
     private ArrayList<Eagle> eagles = new ArrayList<>();
@@ -40,17 +44,25 @@ public class WaveManager {
         hud.setWaveNumber(waveNum);
         numEagles = 0;
         numEnemiesToEliminate += 2;
-        // TODO:
-        // display new wave info popup
-        // wait 5s for a new wave
+
+        waitingForNextWave = true;
+        waveEndTime = System.currentTimeMillis();
+        hud.setWaveCompletionInfo(waveNum - 1, waveNum, WAVE_DELAY_MS);
         waveEnd = false;
 
     }
 
     public void updateCurrentWave() {
-        if (numEliminatedEnemies >= numEnemiesToEliminate && eagles.isEmpty()) {
+        if (numEliminatedEnemies >= numEnemiesToEliminate && eagles.isEmpty() && !waveEnd) {
             waveEnd = true;
             setupNewWave();
+        } else if (waitingForNextWave) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - waveEndTime >= WAVE_DELAY_MS) {
+                waitingForNextWave = false;
+                hud.clearWaveCompletionInfo();
+                updateEnemies();
+            }
         } else {
             updateEnemies();
         }
