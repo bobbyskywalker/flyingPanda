@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Entity {
+public abstract class Entity {
     private int x;
     private int y;
     private int speed;
@@ -29,6 +29,7 @@ public class Entity {
     private int spriteCounter = 0;
     private int spriteNum = 1;
 
+    /* SECTION: Drawing */
     public void draw(Graphics2D g2) {
         BufferedImage img = (this.getSpriteNum() == 1) ? front1 : front2;
 
@@ -63,7 +64,7 @@ public class Entity {
         g2.drawRect(healthBarX, healthBarY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT);
     }
 
-    /* Accessors */
+    /* SECTION: Accessors */
     public int getX() {
         return x;
     }

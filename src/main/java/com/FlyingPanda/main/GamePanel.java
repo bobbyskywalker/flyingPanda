@@ -1,5 +1,6 @@
 package com.FlyingPanda.main;
 
+import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
@@ -7,7 +8,7 @@ import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.menu.GameOverMenu;
 import com.FlyingPanda.menu.MainMenu;
 import com.FlyingPanda.utils.CollissionChecker;
-import com.FlyingPanda.wave.WaveManager;
+import com.FlyingPanda.gameplay.GameplayManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     transient Player player = new Player(keyHandler, this);
 
     public transient HUD hud = new HUD();
-    public transient WaveManager waveManager = new WaveManager(this, hud);
+    public transient GameplayManager gameplayManager = new GameplayManager(this, hud);
 
     public transient MainMenu mainMenu;
 
@@ -74,13 +75,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (keyHandler != null)
             keyHandler.reset();
-        if (waveManager != null)
-            waveManager.dispose();
+        if (gameplayManager != null)
+            gameplayManager.dispose();
         if (player != null)
             player.dispose();
 
         player = null;
-        waveManager = null;
+        gameplayManager = null;
         hud = null;
         bg = null;
 
@@ -91,8 +92,8 @@ public class GamePanel extends JPanel implements Runnable {
         bg.update();
         player.update(hud);
         hud.update();
-        waveManager.updateCurrentWave();
-        CollissionChecker.checkAllCollisions(player, waveManager.getEagles(), waveManager.getBees(), hud, waveManager, this);
+        gameplayManager.updateCurrentWave();
+        CollissionChecker.checkAllCollisions(player, gameplayManager.getEagles(), gameplayManager.getBees(), hud, gameplayManager, this);
     }
 
     @Override
@@ -101,10 +102,12 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         bg.draw(g2);
         player.draw(g2);
-        for (Eagle e : waveManager.getEagles())
+        for (Eagle e : gameplayManager.getEagles())
             e.draw(g2);
-        for (Bee b: waveManager.getBees())
+        for (Bee b: gameplayManager.getBees())
             b.draw(g2);
+        for (Collectible c: gameplayManager.getCollectibles())
+            c.draw(g2);
         hud.renderHUD(g2, player.getLives());
         hud.renderWaveCompletionInfo(g2);
     }

@@ -1,5 +1,6 @@
-package com.FlyingPanda.wave;
+package com.FlyingPanda.gameplay;
 
+import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.hud.HUD;
@@ -7,7 +8,7 @@ import com.FlyingPanda.main.GamePanel;
 
 import java.util.ArrayList;
 
-public class WaveManager {
+public class GameplayManager {
     private int waveNum = 1;
     private int numEagles = 0;
     private int numBees = 0;
@@ -22,6 +23,7 @@ public class WaveManager {
 
     private ArrayList<Eagle> eagles = new ArrayList<>();
     private ArrayList<Bee> bees = new ArrayList<>();
+    private ArrayList<Collectible> collectibles = new ArrayList<>();
 
     private HUD hud;
     private GamePanel gp;
@@ -56,6 +58,12 @@ public class WaveManager {
             b.update();
     }
 
+    private void updateCollectibles() {
+        for (Collectible c: collectibles) {
+            c.update();
+        }
+    }
+
     private void setupNewWave() {
         waveNum++;
         numEliminatedEnemies = 0;
@@ -81,13 +89,15 @@ public class WaveManager {
                 waitingForNextWave = false;
                 hud.clearWaveCompletionInfo();
                 updateEnemies();
+                updateCollectibles();
             }
         } else {
             updateEnemies();
+            updateCollectibles();
         }
     }
 
-    public WaveManager(GamePanel gp, HUD hud) {
+    public GameplayManager(GamePanel gp, HUD hud) {
         this.gp = gp;
         this.hud = hud;
     }
@@ -95,8 +105,10 @@ public class WaveManager {
     public void dispose() {
         eagles.clear();
         bees.clear();
+        collectibles.clear();
         eagles = null;
         bees = null;
+        collectibles = null;
         hud = null;
         gp = null;
     }
@@ -107,6 +119,10 @@ public class WaveManager {
 
     public ArrayList<Bee> getBees() {
         return this.bees;
+    }
+
+    public ArrayList<Collectible> getCollectibles() {
+        return this.collectibles;
     }
 
     public int getNumEliminatedEnemies() {

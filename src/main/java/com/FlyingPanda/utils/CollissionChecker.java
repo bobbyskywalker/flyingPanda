@@ -7,9 +7,8 @@ import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Player;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
-import com.FlyingPanda.wave.WaveManager;
+import com.FlyingPanda.gameplay.GameplayManager;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class CollissionChecker {
     }
 
     /* player bullets hitting enemies */
-    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, WaveManager wm) {
+    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, GameplayManager wm) {
         var playerBullets = player.getBullets();
 
         for (int bulletIndex = 0; bulletIndex < playerBullets.size(); bulletIndex++) {
@@ -117,7 +116,7 @@ public class CollissionChecker {
         }
     }
 
-    public static void checkAllCollisions(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, WaveManager wm, GamePanel gp) {
+    public static void checkAllCollisions(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, GameplayManager wm, GamePanel gp) {
         checkEnemyBulletsHitPlayer(eagles, bees, player, gp);
         checkPlayerBulletsHitEnemies(player, eagles, bees, hud, wm);
     }
