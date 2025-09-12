@@ -2,6 +2,7 @@ package com.FlyingPanda.gameplay;
 
 import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.collectible.FireBullet;
+import com.FlyingPanda.collectible.HealthPickup;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.hud.HUD;
@@ -103,6 +104,7 @@ public class GameplayManager {
         this.gp = gp;
         this.hud = hud;
         collectibles.add(new FireBullet( 20_000_000_000L, hud, "fire"));
+        collectibles.add(new HealthPickup(30_000_000_000L, hud, "health"));
     }
 
     public void dispose() {

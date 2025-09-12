@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-/* CollisionChecker Note: should check for collisions with collectibles */
-
 public abstract class Collectible {
     private int x;
     private int y;

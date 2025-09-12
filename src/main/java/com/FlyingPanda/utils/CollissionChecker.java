@@ -127,6 +127,9 @@ public class CollissionChecker {
                 c.beCollected();
                 if (Objects.equals(c.getCollectibleType(), "fire")) {
                     p.equipFireBullet();
+                } else if (Objects.equals(c.getCollectibleType(), "health")) {
+                    int health = p.getHealth();
+                    p.setHealth(Math.min(health + 15, 100));
                 }
             }
         }
