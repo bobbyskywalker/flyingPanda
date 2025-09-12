@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 public class MainMenu extends JPanel implements KeyListener {
     private static final int BUTTON_WIDTH = 200;
@@ -152,7 +153,11 @@ public class MainMenu extends JPanel implements KeyListener {
                 break;
 
             case KeyEvent.VK_ENTER:
-                handleMenuSelection();
+                try {
+                    handleMenuSelection();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 break;
 
             case KeyEvent.VK_ESCAPE:
@@ -164,7 +169,7 @@ public class MainMenu extends JPanel implements KeyListener {
         }
     }
 
-    private void handleMenuSelection() {
+    private void handleMenuSelection() throws IOException {
         switch (selectedOption) {
             case 0:
                 startGame();
@@ -183,7 +188,7 @@ public class MainMenu extends JPanel implements KeyListener {
         }
     }
 
-    private void startGame() {
+    private void startGame() throws IOException {
         gamePanel = new GamePanel(this);
         parentFrame.remove(this);
         parentFrame.add(gamePanel);

@@ -1,5 +1,6 @@
 package com.FlyingPanda.utils;
 
+import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.entity.Bullet;
 import com.FlyingPanda.entity.Entity;
 import com.FlyingPanda.entity.Eagle;
@@ -11,6 +12,7 @@ import com.FlyingPanda.gameplay.GameplayManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CollissionChecker {
 
@@ -116,8 +118,22 @@ public class CollissionChecker {
         }
     }
 
+    private static void checkCollectibleCollection(Player p, List<Collectible> collectibles) {
+        for (Collectible c : collectibles) {
+            if (isColliding(c.getX(), c.getY(), GamePanel.tileSize, GamePanel.tileSize,
+                        p.getX(), p.getY(), GamePanel.tileSize, GamePanel.tileSize)) {
+
+                c.beCollected();
+                if (Objects.equals(c.getCollectibleType(), "fire")) {
+                    p.equipFireBullet();
+                }
+            }
+        }
+    }
+
     public static void checkAllCollisions(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, GameplayManager wm, GamePanel gp) {
         checkEnemyBulletsHitPlayer(eagles, bees, player, gp);
         checkPlayerBulletsHitEnemies(player, eagles, bees, hud, wm);
+        checkCollectibleCollection(player, wm.getCollectibles());
     }
 }

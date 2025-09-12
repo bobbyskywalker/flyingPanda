@@ -14,7 +14,7 @@ public abstract class Collectible {
     private int y;
 
     private long lastSpawnTime;
-    private final long spawnIntervalTime = 10;
+    private final long spawnIntervalTime = 10_000_000_000L;
 
     private boolean isOnMap;
 
@@ -28,6 +28,7 @@ public abstract class Collectible {
         this.hud = hud;
         this.collectibleType = type;
         this.isOnMap = false;
+        this.lastSpawnTime = System.nanoTime();
     }
 
     private void spawnCollectibleAt() {
@@ -41,12 +42,19 @@ public abstract class Collectible {
 
     private boolean isTimeForSpawn() {
         long currentTime = System.nanoTime();
-        return lastSpawnTime + spawnIntervalTime > currentTime;
+        return currentTime + spawnIntervalTime >= currentTime;
+    }
+
+    public void beCollected() {
+        this.isOnMap = false;
+        this.lastSpawnTime = System.nanoTime();
     }
 
     public void update() {
-        if (!isOnMap && isTimeForSpawn())
+        if (!isOnMap && isTimeForSpawn()) {
             spawnCollectibleAt();
+            isOnMap = true;
+        }
     }
 
     public void draw(Graphics2D g2) {

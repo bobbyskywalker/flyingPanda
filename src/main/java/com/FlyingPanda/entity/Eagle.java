@@ -88,7 +88,7 @@ public class Eagle extends Entity {
         shootCounter++;
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
-            bullets.add(new Bullet(gp, this, "left"));
+            bullets.add(new Bullet(gp, this, "left", "bamboo"));
             setBullets(bullets);
             shootCounter = 0;
         }

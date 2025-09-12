@@ -15,6 +15,12 @@ public class Player extends Entity {
     GamePanel gp;
     Controller keyHandler;
     private int lives = 3;
+    private String equippedBulletType;
+
+    private long fireBulletStartTime = 0;
+    private final long FIRE_BULLET_DURATION = 10_000_000_000L; // 10 seconds in nanoseconds
+    private boolean hasFireBulletActive = false;
+
 
     public Player(Controller keyH, GamePanel gp) {
         this.gp = gp;
@@ -34,10 +40,12 @@ public class Player extends Entity {
     public void setDefaultValues() {
         setX(100);
         setY(100);
+
         setSpeed(4);
         shootingRatio = 15;
         setDirection("down");
-        setShotDamage(30);
+        setEquippedBulletType("bamboo");
+        setShotDamage(15);
         setBullets(new ArrayList<>());
     }
 
@@ -77,7 +85,24 @@ public class Player extends Entity {
         }
     }
 
+    private void resetBulletType() {
+        setEquippedBulletType("bamboo");
+        setShotDamage(15);
+        hasFireBulletActive = false;
+    }
+
+    public void equipFireBullet() {
+        setEquippedBulletType("fire");
+        setShotDamage(30);
+        fireBulletStartTime = System.nanoTime();
+        hasFireBulletActive = true;
+    }
+
     public void update(HUD hud) {
+        if (hasFireBulletActive && System.nanoTime() - fireBulletStartTime >= FIRE_BULLET_DURATION) {
+            resetBulletType();
+        }
+
         if (keyHandler.isUpPressed()) {
             setDirection("up");
             if (this.getY() > hud.getHudHeight()) {
@@ -105,7 +130,7 @@ public class Player extends Entity {
         if (keyHandler.isSpacePressed()) {
             shootCounter++;
             if (shootCounter > shootingRatio) {
-                getBullets().add(new Bullet(gp, this, getDirection()));
+                getBullets().add(new Bullet(gp, this, getDirection(), equippedBulletType));
                 shootCounter = 0;
             }
         }
@@ -178,5 +203,13 @@ public class Player extends Entity {
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public String getEquippedBulletType() {
+        return equippedBulletType;
+    }
+
+    public void setEquippedBulletType(String equippedBulletType) {
+        this.equippedBulletType = equippedBulletType;
     }
 }

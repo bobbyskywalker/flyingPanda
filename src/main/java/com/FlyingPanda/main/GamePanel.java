@@ -12,6 +12,7 @@ import com.FlyingPanda.gameplay.GameplayManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
     private volatile boolean running;
@@ -40,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public transient MainMenu mainMenu;
 
-    public GamePanel(MainMenu mainMenu) {
+    public GamePanel(MainMenu mainMenu) throws IOException {
         this.mainMenu = mainMenu;
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

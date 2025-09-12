@@ -1,11 +1,13 @@
 package com.FlyingPanda.gameplay;
 
 import com.FlyingPanda.collectible.Collectible;
+import com.FlyingPanda.collectible.fireBullet;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameplayManager {
@@ -97,9 +99,10 @@ public class GameplayManager {
         }
     }
 
-    public GameplayManager(GamePanel gp, HUD hud) {
+    public GameplayManager(GamePanel gp, HUD hud) throws IOException {
         this.gp = gp;
         this.hud = hud;
+        collectibles.add(new fireBullet(hud, "fire"));
     }
 
     public void dispose() {

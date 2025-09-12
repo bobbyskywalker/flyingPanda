@@ -21,13 +21,13 @@ public class Bullet {
     public BufferedImage right;
     public String direction;
 
-    public Bullet(GamePanel gp, Entity owner, String direction) {
+    public Bullet(GamePanel gp, Entity owner, String direction, String type) {
         this.gp = gp;
         this.owner = owner;
         this.direction = direction;
+        this.type = type;
         this.x = owner.getX();
         this.y = owner.getY();
-        this.type = "bamboo";
         getBulletImage();
     }
 
@@ -37,6 +37,10 @@ public class Bullet {
                 case "bamboo":
                     left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
                     right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/bamboo-1.png")));
+                    break;
+                case "fire":
+                    left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/fire.png")));
+                    right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/fire.png")));
                     break;
                 default:
                     break;
