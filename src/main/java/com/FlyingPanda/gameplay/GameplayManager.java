@@ -1,7 +1,7 @@
 package com.FlyingPanda.gameplay;
 
 import com.FlyingPanda.collectible.Collectible;
-import com.FlyingPanda.collectible.fireBullet;
+import com.FlyingPanda.collectible.FireBullet;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.hud.HUD;
@@ -102,7 +102,7 @@ public class GameplayManager {
     public GameplayManager(GamePanel gp, HUD hud) throws IOException {
         this.gp = gp;
         this.hud = hud;
-        collectibles.add(new fireBullet(hud, "fire"));
+        collectibles.add(new FireBullet( 20_000_000_000L, hud, "fire"));
     }
 
     public void dispose() {

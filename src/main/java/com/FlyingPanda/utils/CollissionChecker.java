@@ -118,6 +118,7 @@ public class CollissionChecker {
         }
     }
 
+    /* player collecting collectibles */
     private static void checkCollectibleCollection(Player p, List<Collectible> collectibles) {
         for (Collectible c : collectibles) {
             if (isColliding(c.getX(), c.getY(), GamePanel.tileSize, GamePanel.tileSize,

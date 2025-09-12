@@ -14,7 +14,7 @@ public abstract class Collectible {
     private int y;
 
     private long lastSpawnTime;
-    private final long spawnIntervalTime = 10_000_000_000L;
+    private final long spawnIntervalTime;
 
     private boolean isOnMap;
 
@@ -24,11 +24,12 @@ public abstract class Collectible {
 
     private BufferedImage img;
 
-    protected Collectible(HUD hud, String type) {
+    protected Collectible(long spawnIntervalTime, HUD hud, String type) {
         this.hud = hud;
         this.collectibleType = type;
         this.isOnMap = false;
         this.lastSpawnTime = System.nanoTime();
+        this.spawnIntervalTime = spawnIntervalTime;
     }
 
     private void spawnCollectibleAt() {
@@ -42,7 +43,8 @@ public abstract class Collectible {
 
     private boolean isTimeForSpawn() {
         long currentTime = System.nanoTime();
-        return currentTime + spawnIntervalTime >= currentTime;
+        return currentTime - lastSpawnTime >= spawnIntervalTime;
+
     }
 
     public void beCollected() {
@@ -58,7 +60,8 @@ public abstract class Collectible {
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(img, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+        if (isOnMap)
+            g2.drawImage(img, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
     }
 
     public int getX() {
