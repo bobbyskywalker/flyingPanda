@@ -14,7 +14,6 @@ public class Background {
     private int mainX = 0;
     private int layer1X = 0;
     private int layer2X = 0;
-    private static final double mainSpeed = 0.5;
     double layer1Speed = 1.5;
     double layer2Speed = 2;
 
@@ -30,7 +29,6 @@ public class Background {
     }
 
     public void update() {
-        mainX -= (int) mainSpeed;
         layer1X -= (int) layer1Speed;
         layer2X -= (int) layer2Speed;
 

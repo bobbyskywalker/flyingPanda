@@ -50,6 +50,10 @@ public class Bee extends Entity {
         }
     }
 
+    @Override
+    public void update(HUD hud) { /* unused by the bee class */ }
+
+    @Override
     public void update() {
         int offset = 10;
 

@@ -26,8 +26,6 @@ public class HUD {
         waveNumber = 1;
     }
 
-    public void update() { }
-
     public void renderHUD(Graphics2D g2, int playerLives) {
         Color originalColor = g2.getColor();
         Font originalFont = g2.getFont();

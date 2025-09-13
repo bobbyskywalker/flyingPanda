@@ -40,17 +40,14 @@ public class GameplayManager {
         int numBees = baseBees + (waveNumber / 2);
         int numSpiders = baseSpiders + (waveNumber / 3);
 
-        for (int i = 0; i < numEagles; i++) {
+        for (int i = 0; i < numEagles; i++)
             enemies.add(new Eagle(gp, hud));
-        }
 
-        for (int i = 0; i < numBees; i++) {
+        for (int i = 0; i < numBees; i++)
             enemies.add(new Bee(gp, hud));
-        }
 
-        for (int i = 0; i < numSpiders; i++) {
+        for (int i = 0; i < numSpiders; i++)
             enemies.add(new Spider(gp, hud));
-        }
     }
 
     private void updateEnemies() {

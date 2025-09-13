@@ -98,6 +98,7 @@ public class CollissionChecker {
         }
     }
 
+    /* the ONLY method callable from outside */
     public static void checkAllCollisions(Player player, List<Entity> enemies, HUD hud, GameplayManager wm, GamePanel gp) {
         checkEnemyBulletsHitPlayer(enemies, player, gp);
         checkPlayerBulletsHitEnemies(player, enemies, hud, wm);

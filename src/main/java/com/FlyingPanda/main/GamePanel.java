@@ -92,7 +92,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         bg.update();
         player.update(hud);
-        hud.update();
         gameplayManager.updateCurrentWave();
         CollissionChecker.checkAllCollisions(player, gameplayManager.getEnemies(), hud, gameplayManager, this);
     }

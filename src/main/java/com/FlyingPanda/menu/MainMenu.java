@@ -31,7 +31,7 @@ public class MainMenu extends JPanel implements KeyListener {
         setFocusable(true);
         addKeyListener(this);
 
-        titleFont = new Font(fontName, Font.BOLD, 48);
+        titleFont = new Font(fontName, Font.ITALIC, 48);
         buttonFont = new Font(fontName, Font.BOLD, 24);
     }
 
@@ -202,8 +202,8 @@ public class MainMenu extends JPanel implements KeyListener {
         String howToPlayText =
                 "HOW TO PLAY:\n\n" +
                         "• Use ARROW KEYS to move your panda\n" +
-                        "• Press SPACEBAR to shoot bamboo bullets\n" +
-                        "• Eliminate all enemies to complete each wave\n" +
+                        "• Press SPACEBAR to shoot bullets\n" +
+                        "• Eliminate enemies to complete waves\n" +
                         "• Survive as many waves as possible!\n\n" +
                         "Good luck, Flying Panda!";
 

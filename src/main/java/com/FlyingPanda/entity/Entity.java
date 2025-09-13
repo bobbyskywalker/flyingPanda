@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/* Abstract class serving as a base interface for all entities in the game. */
 public abstract class Entity {
     private int x;
     private int y;
@@ -31,8 +32,9 @@ public abstract class Entity {
     private int spriteCounter = 0;
     private int spriteNum = 1;
 
-    /* SECTION: Updating */
+    /* SECTION: Updates*/
     public abstract void update();
+    public abstract void update(HUD hud);
 
     public abstract void setDefaultValues();
     public abstract void setDefaultValues(HUD hud);
@@ -163,7 +165,7 @@ public abstract class Entity {
         return this.bullets;
     }
 
-    public void setBullets(ArrayList<Bullet> bullets) {
-        this.bullets = bullets;
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = (ArrayList<Bullet>) bullets;
     }
 }

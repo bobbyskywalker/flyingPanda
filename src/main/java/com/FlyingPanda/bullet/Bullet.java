@@ -33,6 +33,7 @@ public class Bullet {
         getBulletImage();
     }
 
+    /* load bullet image according to type */
     public void getBulletImage() {
         try {
             switch (type) {

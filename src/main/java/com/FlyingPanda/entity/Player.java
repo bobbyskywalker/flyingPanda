@@ -54,8 +54,6 @@ public class Player extends Entity {
         setBullets(new ArrayList<>());
     }
 
-    public void update() {}
-
     public void getPlayerImage() {
         try {
             front1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/player/panda-front-1.png")));
@@ -85,7 +83,7 @@ public class Player extends Entity {
 
                 if (b.getX() < 0 || b.getX() > GamePanel.screenWidth) {
                     playerBullets.remove(b);
-                    setBullets((ArrayList<Bullet>) playerBullets);
+                    setBullets(playerBullets);
                     i--;
                 }
             }
@@ -105,6 +103,10 @@ public class Player extends Entity {
         hasFireBulletActive = true;
     }
 
+    @Override
+    public void update() { /* unused by the player class */ }
+
+    @Override
     public void update(HUD hud) {
         if (hasFireBulletActive && System.nanoTime() - fireBulletStartTime >= FIRE_BULLET_DURATION) {
             resetBulletType();

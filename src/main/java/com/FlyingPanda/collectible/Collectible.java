@@ -22,6 +22,8 @@ public abstract class Collectible {
 
     private BufferedImage img;
 
+    private Random rand = new Random();
+
     protected Collectible(long spawnIntervalTime, HUD hud, String type) {
         this.hud = hud;
         this.collectibleType = type;
@@ -30,9 +32,8 @@ public abstract class Collectible {
         this.spawnIntervalTime = spawnIntervalTime;
     }
 
+    /* spawn collectible at random location on screen */
     private void spawnCollectibleAt() {
-        Random rand = new Random();
-
         this.setX(rand.nextInt(GamePanel.screenWidth));
         int availableHeight = GamePanel.screenHeight - hud.getHudHeight() - GamePanel.tileSize;
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));

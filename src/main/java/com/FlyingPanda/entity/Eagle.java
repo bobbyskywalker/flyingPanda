@@ -49,6 +49,10 @@ public class Eagle extends Entity {
         }
     }
 
+    @Override
+    public void update(HUD hud) { /* unused by the eagle class */ }
+
+    @Override
     public void update() {
         int offset = 10;
 
