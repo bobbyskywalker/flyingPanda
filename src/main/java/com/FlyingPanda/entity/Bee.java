@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
@@ -30,8 +31,8 @@ public class Bee extends Entity {
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));
 
         setSpeed(1 + rand.nextInt(3));
-        shootingRatio = 60;
-        setShotDamage(5);
+        shootingRatio = 90;
+        setShotDamage(20);
         setDirection("left");
         setBullets(new ArrayList<>());
     }

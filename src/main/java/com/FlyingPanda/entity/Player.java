@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.Controller;
 import com.FlyingPanda.main.GamePanel;

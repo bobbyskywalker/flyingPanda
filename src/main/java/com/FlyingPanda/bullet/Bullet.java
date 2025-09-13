@@ -1,5 +1,6 @@
-package com.FlyingPanda.entity;
+package com.FlyingPanda.bullet;
 
+import com.FlyingPanda.entity.Entity;
 import com.FlyingPanda.main.GamePanel;
 
 import javax.imageio.ImageIO;

@@ -18,7 +18,7 @@ public class GameOverMenu extends JPanel {
     }
 
     public void showGameOverScreen(MainMenu mainMenu) {
-        String gameOverText = "GAME OVER!\n Do you want to submit the score to the leaderboard?";
+        String gameOverText = "GAME OVER!\n Submit your name to post the score to the leaderboard!";
         int choice = JOptionPane.showConfirmDialog(this, gameOverText, "Game Over", JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {

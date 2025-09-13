@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
@@ -31,7 +32,7 @@ public class Spider extends Entity {
 
         setSpeed(5);
         shootingRatio = 70;
-        setShotDamage(40);
+        setShotDamage(30);
         setDirection("left");
         setBullets(new ArrayList<>());
     }

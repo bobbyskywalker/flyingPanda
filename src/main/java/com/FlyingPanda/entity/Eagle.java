@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
@@ -31,7 +32,7 @@ public class Eagle extends Entity {
 
         setSpeed(1 + rand.nextInt(3));
         shootingRatio = 70;
-        setShotDamage(5);
+        setShotDamage(15);
         setDirection("left");
         setBullets(new ArrayList<>());
     }

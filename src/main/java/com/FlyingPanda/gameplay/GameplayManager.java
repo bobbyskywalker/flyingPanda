@@ -16,11 +16,9 @@ import java.util.List;
 
 public class GameplayManager {
     private int waveNum = 1;
-    private int numEagles = 0;
-    private int numBees = 0;
 
     private int numEliminatedEnemies = 0;
-    private int numEnemiesToEliminate = 5;
+    private int numEnemiesToEliminate = 4;
 
     private static final long WAVE_DELAY_MS = 5000;
     private long waveEndTime = 0;
@@ -33,38 +31,35 @@ public class GameplayManager {
     private HUD hud;
     private GamePanel gp;
 
-    private void spawnEagles() {
-        for (int i = 0; i < numEagles; i++)
+    private void spawnEnemiesForWave(int waveNumber) {
+        int baseEagles = 1;
+        int baseBees = 0;
+        int baseSpiders = 0;
+
+        int numEagles = baseEagles + waveNumber;
+        int numBees = baseBees + (waveNumber / 2);
+        int numSpiders = baseSpiders + (waveNumber / 3);
+
+        for (int i = 0; i < numEagles; i++) {
             enemies.add(new Eagle(gp, hud));
-    }
+        }
 
-    private void spawnBees() {
-        for (int i = 0; i < numBees; i++)
+        for (int i = 0; i < numBees; i++) {
             enemies.add(new Bee(gp, hud));
-    }
+        }
 
-    private void spawnSpiders() {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < numSpiders; i++) {
             enemies.add(new Spider(gp, hud));
+        }
     }
 
     private void updateEnemies() {
         if (!waveEnd) {
-            if (enemies.isEmpty()) {
-                if (numEagles == 6)
-                    numEagles = 0;
-                numEagles++;
-                spawnEagles();
-                if (numBees == 6)
-                    numBees = 0;
-                if (waveNum % 2 == 0)
-                    numBees++;
-                spawnBees();
-                spawnSpiders();
-            }
+            if (enemies.isEmpty())
+                spawnEnemiesForWave(waveNum);
+            for (Entity e : enemies)
+                e.update();
         }
-        for (Entity e: enemies)
-            e.update();
     }
 
     private void updateCollectibles() {
@@ -77,9 +72,7 @@ public class GameplayManager {
         waveNum++;
         numEliminatedEnemies = 0;
         hud.setWaveNumber(waveNum);
-        numEagles = 0;
-        numBees = 0;
-        numEnemiesToEliminate += 2;
+        numEnemiesToEliminate += 1;
 
         waitingForNextWave = true;
         waveEndTime = System.currentTimeMillis();
@@ -126,7 +119,7 @@ public class GameplayManager {
         return this.enemies;
     }
 
-    public ArrayList<Collectible> getCollectibles() {
+    public List<Collectible> getCollectibles() {
         return this.collectibles;
     }
 

@@ -1,5 +1,9 @@
 package com.FlyingPanda.hud;
 
+import com.FlyingPanda.entity.Bee;
+import com.FlyingPanda.entity.Eagle;
+import com.FlyingPanda.entity.Entity;
+import com.FlyingPanda.entity.Spider;
 import com.FlyingPanda.main.GamePanel;
 
 import java.awt.*;
@@ -123,6 +127,18 @@ public class HUD {
 
     public int getScore() {
         return score;
+    }
+
+    public void updateScore(Entity enemy) {
+        int scoreToAdd = 0;
+        switch (enemy) {
+            case Spider _ -> scoreToAdd = 100;
+            case Eagle _ -> scoreToAdd = 50;
+            case Bee _ -> scoreToAdd = 20;
+            default -> {
+            }
+        }
+        this.score += scoreToAdd;
     }
 
     public void setScore(int score) {

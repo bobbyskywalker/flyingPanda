@@ -1,5 +1,6 @@
-package com.FlyingPanda.utils;
+package com.FlyingPanda.collision;
 
+import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.entity.*;
 import com.FlyingPanda.hud.HUD;
@@ -41,9 +42,9 @@ public class CollissionChecker {
                     i--;
                     player.setHealth(player.getHealth() - enemy.getShotDamage());
                     if (player.getHealth() <= 0) {
+                        player.setLives(player.getLives() - 1);
                         if (player.getLives() > 0) {
                             player.setHealth(100);
-                            player.setLives(player.getLives() - 1);
                         } else {
                             gp.gameOver();
                         }
@@ -72,7 +73,7 @@ public class CollissionChecker {
                     if (enemy.getHealth() <= 0) {
                         wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
                         enemies.remove(enemyIndex);
-                        hud.setScore(hud.getScore() + 30);
+                        hud.updateScore(enemy);
                     }
                     break;
                 }

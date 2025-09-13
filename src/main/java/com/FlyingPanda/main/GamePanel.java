@@ -5,7 +5,7 @@ import com.FlyingPanda.entity.*;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.menu.GameOverMenu;
 import com.FlyingPanda.menu.MainMenu;
-import com.FlyingPanda.utils.CollissionChecker;
+import com.FlyingPanda.collision.CollissionChecker;
 import com.FlyingPanda.gameplay.GameplayManager;
 
 import javax.swing.JPanel;
@@ -64,6 +64,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void gameOver() {
+        update();
+        repaint();
         stopGameThread();
         GameOverMenu gameOverPanel = new GameOverMenu(hud.getScore(), this);
         gameOverPanel.showGameOverScreen(mainMenu);
