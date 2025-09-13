@@ -19,7 +19,7 @@ public class Player extends Entity {
     private String equippedBulletType;
 
     private long fireBulletStartTime = 0;
-    private final long FIRE_BULLET_DURATION = 10_000_000_000L;
+    private static final long FIRE_BULLET_DURATION = 10_000_000_000L;
     private boolean hasFireBulletActive = false;
 
 

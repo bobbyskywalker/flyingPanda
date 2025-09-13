@@ -3,7 +3,6 @@ package com.FlyingPanda.menu;
 import com.FlyingPanda.main.GamePanel;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class GameOverMenu extends JPanel {
     private String playerName = "";

@@ -7,7 +7,6 @@ import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 import com.FlyingPanda.gameplay.GameplayManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +37,7 @@ public class CollissionChecker {
                 Bullet enemyBullet = enemyBullets.get(i);
                 if (checkBulletEntityCollision(enemyBullet, player.getX(), player.getY())) {
                     enemyBullets.remove(i);
-                    enemy.setBullets((ArrayList<Bullet>) enemyBullets);
+                    enemy.setBullets(enemyBullets);
                     i--;
                     player.setHealth(player.getHealth() - enemy.getShotDamage());
                     if (player.getHealth() <= 0) {
@@ -65,7 +64,7 @@ public class CollissionChecker {
                 Entity enemy = enemies.get(enemyIndex);
                 if (checkBulletEntityCollision(playerBullet, enemy.getX(), enemy.getY())) {
                     playerBullets.remove(bulletIndex);
-                    player.setBullets((ArrayList<Bullet>) playerBullets);
+                    player.setBullets(playerBullets);
                     bulletIndex--;
 
                     enemy.setHealth(enemy.getHealth() - player.getShotDamage());
@@ -92,7 +91,7 @@ public class CollissionChecker {
                     p.equipFireBullet();
                 } else if (Objects.equals(c.getCollectibleType(), "health")) {
                     int health = p.getHealth();
-                    p.setHealth(Math.min(health + 15, 100));
+                    p.setHealth(health + 15);
                 }
             }
         }

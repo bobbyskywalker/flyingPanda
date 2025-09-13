@@ -13,8 +13,6 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
-    private volatile boolean running;
-
     public static final int originalTileSize = 20;
     static final int scale = 3;
 
@@ -34,10 +32,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     transient Player player = new Player(keyHandler, this);
 
-    public transient HUD hud = new HUD();
-    public transient GameplayManager gameplayManager = new GameplayManager(this, hud);
+    private transient HUD hud = new HUD();
+    private transient GameplayManager gameplayManager = new GameplayManager(this, hud);
 
-    public transient MainMenu mainMenu;
+    private final transient MainMenu mainMenu;
 
     public GamePanel(MainMenu mainMenu) throws IOException {
         this.mainMenu = mainMenu;
@@ -49,13 +47,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGameThread() {
-        running = true;
         gameThread = new Thread(this);
         gameThread.start();
     }
 
     private void stopGameThread() {
-        running = false;
         Thread t = gameThread;
         gameThread = null;
         if (t != null && t != Thread.currentThread()) {

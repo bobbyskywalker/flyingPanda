@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /* Abstract class serving as a base interface for all entities in the game. */
 public abstract class Entity {
@@ -31,6 +32,8 @@ public abstract class Entity {
 
     private int spriteCounter = 0;
     private int spriteNum = 1;
+
+    private final Random rand = new Random();
 
     /* SECTION: Updates*/
     public abstract void update();
@@ -167,5 +170,9 @@ public abstract class Entity {
 
     public void setBullets(List<Bullet> bullets) {
         this.bullets = (ArrayList<Bullet>) bullets;
+    }
+
+    public Random getRand() {
+        return rand;
     }
 }

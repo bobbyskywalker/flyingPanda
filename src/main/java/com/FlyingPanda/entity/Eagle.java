@@ -24,8 +24,7 @@ public class Eagle extends Entity {
 
     @Override
     public void setDefaultValues(HUD hud) {
-        Random rand = new Random();
-
+        Random rand = getRand();
         this.setX(GamePanel.screenWidth);
         int availableHeight = GamePanel.screenHeight - hud.getHudHeight() - GamePanel.tileSize;
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));

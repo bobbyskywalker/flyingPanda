@@ -13,7 +13,8 @@ public class Bullet {
     GamePanel gp;
     Entity owner;
 
-    private int x, y;
+    private int x;
+    private int y;
     private final int speed;
 
     private String type;
