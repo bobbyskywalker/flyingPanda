@@ -37,9 +37,10 @@ public class Player extends Entity {
         front1 = front2 = front3 = front4 = front5 = left1 = left2 = left3 = right1 = right2 = right3 = null;
     }
 
-    /* unused */
+    @Override
     public void setDefaultValues(HUD hud) { /* unused abstract method, override below without hud arg */ }
 
+    @Override
     public void setDefaultValues() {
         setX(100);
         setY(100);
@@ -81,7 +82,7 @@ public class Player extends Entity {
                 Bullet b = playerBullets.get(i);
                 b.update();
 
-                if (b.x < 0 || b.x > GamePanel.screenWidth) {
+                if (b.getX() < 0 || b.getX() > GamePanel.screenWidth) {
                     playerBullets.remove(b);
                     setBullets((ArrayList<Bullet>) playerBullets);
                     i--;
@@ -135,7 +136,7 @@ public class Player extends Entity {
         if (keyHandler.isSpacePressed()) {
             shootCounter++;
             if (shootCounter > shootingRatio) {
-                getBullets().add(new Bullet(gp, this, getDirection(), equippedBulletType));
+                getBullets().add(new Bullet(gp, this, getDirection(), equippedBulletType, 5));
                 shootCounter = 0;
             }
         }

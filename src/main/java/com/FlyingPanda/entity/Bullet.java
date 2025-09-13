@@ -12,20 +12,21 @@ public class Bullet {
     GamePanel gp;
     Entity owner;
 
-    public int x, y;
-    public int speed = 5;
+    private int x, y;
+    private final int speed;
 
     private String type;
 
-    public BufferedImage left;
-    public BufferedImage right;
-    public String direction;
+    private BufferedImage left;
+    private BufferedImage right;
+    private final String direction;
 
-    public Bullet(GamePanel gp, Entity owner, String direction, String type) {
+    public Bullet(GamePanel gp, Entity owner, String direction, String type, int speed) {
         this.gp = gp;
         this.owner = owner;
         this.direction = direction;
         this.type = type;
+        this.speed = speed;
         this.x = owner.getX();
         this.y = owner.getY();
         getBulletImage();
@@ -69,5 +70,13 @@ public class Bullet {
             default -> null;
         };
         g2.drawImage(img, this.x, this.y, GamePanel.tileSize, GamePanel.tileSize, null);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

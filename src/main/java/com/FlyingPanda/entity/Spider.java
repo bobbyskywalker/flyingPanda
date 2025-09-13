@@ -18,6 +18,10 @@ public class Spider extends Entity {
         getSpiderImage();
     }
 
+    @Override
+    public void setDefaultValues() { /* unused */ }
+
+    @Override
     public void setDefaultValues(HUD hud) {
         Random rand = new Random();
 
@@ -75,7 +79,8 @@ public class Spider extends Entity {
         shootCounter++;
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
-            bullets.add(new Bullet(gp, this, "left", "spiderweb"));
+            Bullet newBullet = new Bullet(gp, this, getDirection(), "spiderweb", 10);
+            bullets.add(newBullet);
             setBullets(bullets);
             shootCounter = 0;
         }

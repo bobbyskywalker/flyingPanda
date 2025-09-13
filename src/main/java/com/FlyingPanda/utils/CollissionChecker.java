@@ -1,11 +1,7 @@
 package com.FlyingPanda.utils;
 
 import com.FlyingPanda.collectible.Collectible;
-import com.FlyingPanda.entity.Bullet;
-import com.FlyingPanda.entity.Entity;
-import com.FlyingPanda.entity.Eagle;
-import com.FlyingPanda.entity.Bee;
-import com.FlyingPanda.entity.Player;
+import com.FlyingPanda.entity.*;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 import com.FlyingPanda.gameplay.GameplayManager;
@@ -27,7 +23,7 @@ public class CollissionChecker {
     }
 
     public static boolean checkBulletEntityCollision(Bullet bullet, int entityX, int entityY) {
-        return isColliding(bullet.x, bullet.y, GamePanel.tileSize, GamePanel.tileSize,
+        return isColliding(bullet.getX(), bullet.getY(), GamePanel.tileSize, GamePanel.tileSize,
                 entityX, entityY, GamePanel.tileSize, GamePanel.tileSize);
     }
 
@@ -68,7 +64,7 @@ public class CollissionChecker {
     }
 
     /* player bullets hitting enemies */
-    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, List<Bee> bees, HUD hud, GameplayManager wm) {
+    public static void checkPlayerBulletsHitEnemies(Player player, List<Eagle> eagles, List<Bee> bees, List<Spider> spiders, HUD hud, GameplayManager wm) {
         var playerBullets = player.getBullets();
 
         for (int bulletIndex = 0; bulletIndex < playerBullets.size(); bulletIndex++) {
@@ -109,6 +105,27 @@ public class CollissionChecker {
                         if (bee.getHealth() <= 0) {
                             wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
                             bees.remove(beeIndex);
+                            hud.setScore(hud.getScore() + 50);
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // colission with bees
+            if (!hitFound) {
+                for (int spiderIndex = 0; spiderIndex < spiders.size(); spiderIndex++) {
+                    Spider spider = spiders.get(spiderIndex);
+                    if (checkBulletEntityCollision(playerBullet, bee.getX(), bee.getY())) {
+                        playerBullets.remove(bulletIndex);
+                        player.setBullets((ArrayList<Bullet>) playerBullets);
+                        bulletIndex--;
+
+                        bee.setHealth(bee.getHealth() - player.getShotDamage());
+
+                        if (bee.getHealth() <= 0) {
+                            wm.setNumEliminatedEnemies(wm.getNumEliminatedEnemies() + 1);
+                            bees.remove(spiderIndex);
                             hud.setScore(hud.getScore() + 50);
                         }
                         break;

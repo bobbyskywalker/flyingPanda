@@ -42,8 +42,8 @@ public abstract class Entity {
         for (int i = 0; i < entityBullets.size(); i++) {
             Bullet b = entityBullets.get(i);
             b.update();
-            if (b.x < 0 || b.x > GamePanel.screenWidth ||
-                    b.y < 0 || b.y > GamePanel.screenHeight) {
+            if (b.getX() < 0 || b.getX() > GamePanel.screenWidth ||
+                    b.getY() < 0 || b.getY() > GamePanel.screenHeight) {
                 entityBullets.remove(i);
                 i--;
             }

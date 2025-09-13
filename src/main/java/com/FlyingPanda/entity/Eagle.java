@@ -18,6 +18,10 @@ public class Eagle extends Entity {
         getEagleImage();
     }
 
+    @Override
+    public void setDefaultValues() { /* unused */ }
+
+    @Override
     public void setDefaultValues(HUD hud) {
         Random rand = new Random();
 
@@ -73,7 +77,7 @@ public class Eagle extends Entity {
         shootCounter++;
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
-            bullets.add(new Bullet(gp, this, "left", "bamboo"));
+            bullets.add(new Bullet(gp, this, "left", "bamboo", 5));
             setBullets(bullets);
             shootCounter = 0;
         }
