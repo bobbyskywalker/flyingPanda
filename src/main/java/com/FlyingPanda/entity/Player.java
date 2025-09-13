@@ -37,6 +37,9 @@ public class Player extends Entity {
         front1 = front2 = front3 = front4 = front5 = left1 = left2 = left3 = right1 = right2 = right3 = null;
     }
 
+    /* unused */
+    public void setDefaultValues(HUD hud) { /* unused abstract method, override below without hud arg */ }
+
     public void setDefaultValues() {
         setX(100);
         setY(100);
@@ -48,6 +51,8 @@ public class Player extends Entity {
         setShotDamage(15);
         setBullets(new ArrayList<>());
     }
+
+    public void update() {}
 
     public void getPlayerImage() {
         try {

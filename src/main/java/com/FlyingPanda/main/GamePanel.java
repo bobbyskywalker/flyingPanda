@@ -4,6 +4,7 @@ import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
 import com.FlyingPanda.entity.Player;
+import com.FlyingPanda.entity.Spider;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.menu.GameOverMenu;
 import com.FlyingPanda.menu.MainMenu;
@@ -107,6 +108,8 @@ public class GamePanel extends JPanel implements Runnable {
             e.draw(g2);
         for (Bee b: gameplayManager.getBees())
             b.draw(g2);
+        for (Spider s: gameplayManager.getSpiders())
+            s.draw(g2);
         for (Collectible c: gameplayManager.getCollectibles())
             c.draw(g2);
         hud.renderHUD(g2, player.getLives());

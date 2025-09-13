@@ -4,7 +4,6 @@ import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -46,20 +45,6 @@ public class Bee extends Entity {
         }
     }
 
-    private void updateBeeBullets() {
-        var bullets = getBullets();
-
-        for (int i = 0; i < bullets.size(); i++) {
-            Bullet b = bullets.get(i);
-            b.update();
-            if (b.x < 0 || b.x > GamePanel.screenWidth ||
-                    b.y < 0 || b.y > GamePanel.screenHeight) {
-                bullets.remove(i);
-                i--;
-            }
-        }
-    }
-
     public void update() {
         int offset = 10;
 
@@ -94,6 +79,6 @@ public class Bee extends Entity {
             setBullets(bullets);
             shootCounter = 0;
         }
-        updateBeeBullets();
+        updateEntityBullets();
     }
 }

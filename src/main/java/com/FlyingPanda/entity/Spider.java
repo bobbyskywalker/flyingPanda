@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class Eagle extends Entity {
+public class Spider extends Entity {
     GamePanel gp;
 
-    public Eagle(GamePanel gp, HUD hud) {
+    public Spider(GamePanel gp, HUD hud) {
         this.gp = gp;
         setDefaultValues(hud);
-        getEagleImage();
+        getSpiderImage();
     }
 
     public void setDefaultValues(HUD hud) {
@@ -25,19 +25,21 @@ public class Eagle extends Entity {
         int availableHeight = GamePanel.screenHeight - hud.getHudHeight() - GamePanel.tileSize;
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));
 
-        setSpeed(1 + rand.nextInt(3));
+        setSpeed(5);
         shootingRatio = 70;
-        setShotDamage(5);
+        setShotDamage(40);
         setDirection("left");
         setBullets(new ArrayList<>());
     }
 
-    public void getEagleImage() {
+    public void getSpiderImage() {
         try {
-            front1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/eagle/eagle-1.png")));
-            front2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/eagle/eagle-2.png")));
-            front3 = front4 = front5 = left1 = left2 = left3 =
-                    right1 = right2 = right3 = null;
+            front1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-01.png")));
+            front2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-02.png")));
+            front3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-03.png")));
+            front4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-04.png")));
+            front5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-05.png")));
+            left1 = left2 = left3 = right1 = right2 = right3 = null;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,7 +75,7 @@ public class Eagle extends Entity {
         shootCounter++;
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
-            bullets.add(new Bullet(gp, this, "left", "bamboo"));
+            bullets.add(new Bullet(gp, this, "left", "spiderweb"));
             setBullets(bullets);
             shootCounter = 0;
         }

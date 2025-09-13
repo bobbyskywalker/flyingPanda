@@ -5,6 +5,7 @@ import com.FlyingPanda.collectible.FireBullet;
 import com.FlyingPanda.collectible.HealthPickup;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
+import com.FlyingPanda.entity.Spider;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
@@ -26,6 +27,7 @@ public class GameplayManager {
 
     private ArrayList<Eagle> eagles = new ArrayList<>();
     private ArrayList<Bee> bees = new ArrayList<>();
+    private ArrayList<Spider> spiders = new ArrayList<>();
     private ArrayList<Collectible> collectibles = new ArrayList<>();
 
     private HUD hud;
@@ -41,9 +43,14 @@ public class GameplayManager {
             bees.add(new Bee(gp, hud));
     }
 
+    private void spawnSpiders() {
+        for (int i = 0; i < 1; i++)
+            spiders.add(new Spider(gp, hud));
+    }
+
     private void updateEnemies() {
         if (!waveEnd) {
-            if (eagles.isEmpty() && bees.isEmpty()) {
+            if (eagles.isEmpty() && bees.isEmpty() && spiders.isEmpty()) {
                 if (numEagles == 6)
                     numEagles = 0;
                 numEagles++;
@@ -53,12 +60,15 @@ public class GameplayManager {
                 if (waveNum % 2 == 0)
                     numBees++;
                 spawnBees();
+                spawnSpiders();
             }
         }
         for (Eagle e : eagles)
             e.update();
         for (Bee b : bees)
             b.update();
+        for (Spider s: spiders)
+            s.update();
     }
 
     private void updateCollectibles() {
@@ -110,6 +120,7 @@ public class GameplayManager {
     public void dispose() {
         eagles.clear();
         bees.clear();
+        spiders.clear();
         collectibles.clear();
         eagles = null;
         bees = null;
@@ -124,6 +135,10 @@ public class GameplayManager {
 
     public ArrayList<Bee> getBees() {
         return this.bees;
+    }
+
+    public ArrayList<Spider> getSpiders() {
+        return this.spiders;
     }
 
     public ArrayList<Collectible> getCollectibles() {

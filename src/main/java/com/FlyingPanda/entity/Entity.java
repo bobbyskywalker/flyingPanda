@@ -1,5 +1,6 @@
 package com.FlyingPanda.entity;
 
+import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
 import java.awt.*;
@@ -29,15 +30,35 @@ public abstract class Entity {
     private int spriteCounter = 0;
     private int spriteNum = 1;
 
+    /* SECTION: Updating */
+    public abstract void update();
+
+    public abstract void setDefaultValues();
+    public abstract void setDefaultValues(HUD hud);
+
+    public void updateEntityBullets() {
+        var entityBullets = getBullets();
+
+        for (int i = 0; i < entityBullets.size(); i++) {
+            Bullet b = entityBullets.get(i);
+            b.update();
+            if (b.x < 0 || b.x > GamePanel.screenWidth ||
+                    b.y < 0 || b.y > GamePanel.screenHeight) {
+                entityBullets.remove(i);
+                i--;
+            }
+        }
+    }
+
     /* SECTION: Drawing */
     public void draw(Graphics2D g2) {
         BufferedImage img = (this.getSpriteNum() == 1) ? front1 : front2;
 
         drawHealthBar(g2, GamePanel.tileSize);
 
-        var bullets = getBullets();
-        if (bullets != null) {
-            for (Bullet b: bullets) {
+        var entityBullets = getBullets();
+        if (entityBullets != null) {
+            for (Bullet b: entityBullets) {
                 b.draw(g2);
             }
         }
