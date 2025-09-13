@@ -5,12 +5,14 @@ import com.FlyingPanda.collectible.FireBullet;
 import com.FlyingPanda.collectible.HealthPickup;
 import com.FlyingPanda.entity.Bee;
 import com.FlyingPanda.entity.Eagle;
+import com.FlyingPanda.entity.Entity;
 import com.FlyingPanda.entity.Spider;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameplayManager {
     private int waveNum = 1;
@@ -139,6 +141,14 @@ public class GameplayManager {
 
     public ArrayList<Spider> getSpiders() {
         return this.spiders;
+    }
+
+    public List<Entity> getAllEnemies() {
+        List<Entity> allEnemies = new ArrayList<>();
+        allEnemies.addAll(eagles);
+        allEnemies.addAll(bees);
+        allEnemies.addAll(spiders);
+        return allEnemies;
     }
 
     public ArrayList<Collectible> getCollectibles() {
