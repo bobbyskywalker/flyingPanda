@@ -27,9 +27,7 @@ public class GameplayManager {
     private boolean waitingForNextWave = false;
     private boolean waveEnd = false;
 
-    private ArrayList<Eagle> eagles = new ArrayList<>();
-    private ArrayList<Bee> bees = new ArrayList<>();
-    private ArrayList<Spider> spiders = new ArrayList<>();
+    private List<Entity> enemies = new ArrayList<>();
     private ArrayList<Collectible> collectibles = new ArrayList<>();
 
     private HUD hud;
@@ -37,22 +35,22 @@ public class GameplayManager {
 
     private void spawnEagles() {
         for (int i = 0; i < numEagles; i++)
-            eagles.add(new Eagle(gp, hud));
+            enemies.add(new Eagle(gp, hud));
     }
 
     private void spawnBees() {
         for (int i = 0; i < numBees; i++)
-            bees.add(new Bee(gp, hud));
+            enemies.add(new Bee(gp, hud));
     }
 
     private void spawnSpiders() {
         for (int i = 0; i < 1; i++)
-            spiders.add(new Spider(gp, hud));
+            enemies.add(new Spider(gp, hud));
     }
 
     private void updateEnemies() {
         if (!waveEnd) {
-            if (eagles.isEmpty() && bees.isEmpty() && spiders.isEmpty()) {
+            if (enemies.isEmpty()) {
                 if (numEagles == 6)
                     numEagles = 0;
                 numEagles++;
@@ -65,12 +63,8 @@ public class GameplayManager {
                 spawnSpiders();
             }
         }
-        for (Eagle e : eagles)
+        for (Entity e: enemies)
             e.update();
-        for (Bee b : bees)
-            b.update();
-        for (Spider s: spiders)
-            s.update();
     }
 
     private void updateCollectibles() {
@@ -95,7 +89,7 @@ public class GameplayManager {
     }
 
     public void updateCurrentWave() {
-        if (numEliminatedEnemies >= numEnemiesToEliminate && bees.isEmpty() && eagles.isEmpty() && !waveEnd) {
+        if (numEliminatedEnemies >= numEnemiesToEliminate && enemies.isEmpty() && !waveEnd) {
             waveEnd = true;
             setupNewWave();
         } else if (waitingForNextWave) {
@@ -120,35 +114,16 @@ public class GameplayManager {
     }
 
     public void dispose() {
-        eagles.clear();
-        bees.clear();
-        spiders.clear();
+        enemies.clear();
         collectibles.clear();
-        eagles = null;
-        bees = null;
+        enemies = null;
         collectibles = null;
         hud = null;
         gp = null;
     }
 
-    public ArrayList<Eagle> getEagles() {
-        return this.eagles;
-    }
-
-    public ArrayList<Bee> getBees() {
-        return this.bees;
-    }
-
-    public ArrayList<Spider> getSpiders() {
-        return this.spiders;
-    }
-
-    public List<Entity> getAllEnemies() {
-        List<Entity> allEnemies = new ArrayList<>();
-        allEnemies.addAll(eagles);
-        allEnemies.addAll(bees);
-        allEnemies.addAll(spiders);
-        return allEnemies;
+    public List<Entity> getEnemies() {
+        return this.enemies;
     }
 
     public ArrayList<Collectible> getCollectibles() {
