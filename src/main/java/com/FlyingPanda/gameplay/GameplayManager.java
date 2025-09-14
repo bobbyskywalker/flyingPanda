@@ -21,6 +21,8 @@ public class GameplayManager {
     private int numEnemiesToEliminate = 4;
 
     private static final long WAVE_DELAY_MS = 5000;
+    private static final long TIME_TO_FINISH_WAVE = 10_000_000_000L;
+    private static long waveTimePassed = 0;
     private long waveEndTime = 0;
     private boolean waitingForNextWave = false;
     private boolean waveEnd = false;
@@ -66,6 +68,8 @@ public class GameplayManager {
     }
 
     private void setupNewWave() {
+        if (waveTimePassed >= TIME_TO_FINISH_WAVE)
+            return ;
         waveNum++;
         numEliminatedEnemies = 0;
         hud.setWaveNumber(waveNum);
@@ -100,7 +104,7 @@ public class GameplayManager {
         this.gp = gp;
         this.hud = hud;
         collectibles.add(new FireBullet( 20_000_000_000L, hud, "fire"));
-        collectibles.add(new HealthPickup(30_000_000_000L, hud, "health"));
+        collectibles.add(new HealthPickup(60_000_000_000L, hud, "health"));
     }
 
     public void dispose() {

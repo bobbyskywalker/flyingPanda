@@ -50,6 +50,10 @@ public class Bullet {
                     left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/spiderweb.png")));
                     right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/spiderweb.png")));
                     break;
+                case "energyBall":
+                    left = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/energy-ball.png")));
+                    right = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bullets/energy-ball.png")));
+                    break;
                 default:
                     break;
             }

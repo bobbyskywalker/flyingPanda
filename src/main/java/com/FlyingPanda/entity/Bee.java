@@ -82,8 +82,8 @@ public class Bee extends Entity {
         shootCounter++;
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
-            bullets.add(new Bullet(gp, this, "left", "bamboo", 5));
-            bullets.add(new Bullet(gp, this, "right", "bamboo", 5));
+            bullets.add(new Bullet(gp, this, "left", "energyBall", 5));
+            bullets.add(new Bullet(gp, this, "right", "energyBall", 5));
             setBullets(bullets);
             shootCounter = 0;
         }
