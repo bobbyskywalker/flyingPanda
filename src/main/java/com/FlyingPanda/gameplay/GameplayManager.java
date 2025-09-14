@@ -3,10 +3,7 @@ package com.FlyingPanda.gameplay;
 import com.FlyingPanda.collectible.Collectible;
 import com.FlyingPanda.collectible.FireBullet;
 import com.FlyingPanda.collectible.HealthPickup;
-import com.FlyingPanda.entity.Bee;
-import com.FlyingPanda.entity.Eagle;
-import com.FlyingPanda.entity.Entity;
-import com.FlyingPanda.entity.Spider;
+import com.FlyingPanda.entity.*;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
 
@@ -21,8 +18,8 @@ public class GameplayManager {
     private int numEnemiesToEliminate = 4;
 
     private static final long WAVE_DELAY_MS = 5000;
-    private static final long TIME_TO_FINISH_WAVE = 10_000_000_000L;
-    private static long waveTimePassed = 0;
+    private static final long TIME_TO_FINISH_WAVE = 60_000_000_000L;
+    private long waveStartTime;
     private long waveEndTime = 0;
     private boolean waitingForNextWave = false;
     private boolean waveEnd = false;
@@ -30,6 +27,7 @@ public class GameplayManager {
     private List<Entity> enemies = new ArrayList<>();
     private ArrayList<Collectible> collectibles = new ArrayList<>();
 
+    private Player player;
     private HUD hud;
     private GamePanel gp;
 
@@ -68,8 +66,6 @@ public class GameplayManager {
     }
 
     private void setupNewWave() {
-        if (waveTimePassed >= TIME_TO_FINISH_WAVE)
-            return ;
         waveNum++;
         numEliminatedEnemies = 0;
         hud.setWaveNumber(waveNum);
@@ -85,24 +81,47 @@ public class GameplayManager {
     public void updateCurrentWave() {
         if (numEliminatedEnemies >= numEnemiesToEliminate && enemies.isEmpty() && !waveEnd) {
             waveEnd = true;
+            hud.stopWaveTimer();
             setupNewWave();
         } else if (waitingForNextWave) {
             long currentTime = System.currentTimeMillis();
             if (currentTime - waveEndTime >= WAVE_DELAY_MS) {
                 waitingForNextWave = false;
                 hud.clearWaveCompletionInfo();
+                waveStartTime = System.nanoTime();
+                hud.startWaveTimer();
                 updateEnemies();
                 updateCollectibles();
             }
         } else {
+            if (waveStartTime > 0) {
+                long currentTime = System.nanoTime();
+                long waveTimePassed = currentTime - waveStartTime;
+
+                if (waveTimePassed >= TIME_TO_FINISH_WAVE) {
+                    player.setLives(player.getLives() - 1);
+                    hud.showTimeoutMessage();
+
+                    if (player.getLives() <= 0)
+                        gp.gameOver();
+                    waveStartTime = System.nanoTime();
+                    hud.startWaveTimer();
+                }
+            }
+
             updateEnemies();
             updateCollectibles();
         }
     }
 
-    public GameplayManager(GamePanel gp, HUD hud) throws IOException {
+    public GameplayManager(GamePanel gp, HUD hud, Player player) throws IOException {
         this.gp = gp;
         this.hud = hud;
+        this.player = player;
+
+        this.waveStartTime = System.nanoTime();
+        this.hud.startWaveTimer();
+
         collectibles.add(new FireBullet( 20_000_000_000L, hud, "fire"));
         collectibles.add(new HealthPickup(60_000_000_000L, hud, "health"));
     }

@@ -8,7 +8,7 @@ import com.FlyingPanda.menu.MainMenu;
 import com.FlyingPanda.collision.CollissionChecker;
 import com.FlyingPanda.gameplay.GameplayManager;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     transient Player player = new Player(keyHandler, this);
 
     private transient HUD hud = new HUD();
-    private transient GameplayManager gameplayManager = new GameplayManager(this, hud);
+    private transient GameplayManager gameplayManager = new GameplayManager(this, hud, player);
 
     private final transient MainMenu mainMenu;
 
@@ -60,11 +60,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void gameOver() {
-        update();
-        repaint();
         stopGameThread();
-        GameOverMenu gameOverPanel = new GameOverMenu(hud.getScore(), this);
-        gameOverPanel.showGameOverScreen(mainMenu);
+
+        SwingUtilities.invokeLater(() -> {
+            try {
+                GameOverMenu gameOverPanel = new GameOverMenu(hud.getScore(), this);
+                gameOverPanel.showGameOverScreen(mainMenu);
+            } catch (Exception e) {
+                mainMenu.returnToMenu();
+                dispose();
+            }
+        });
     }
 
     public void dispose() {

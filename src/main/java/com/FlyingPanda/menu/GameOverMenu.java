@@ -17,16 +17,42 @@ public class GameOverMenu extends JPanel {
     }
 
     public void showGameOverScreen(MainMenu mainMenu) {
-        String gameOverText = "GAME OVER!\n Submit your name to post the score to the leaderboard!";
-        int choice = JOptionPane.showConfirmDialog(this, gameOverText, "Game Over", JOptionPane.YES_NO_OPTION);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                String gameOverText = "GAME OVER!\nFinal Score: " + score +
+                        "\n\nWould you like to submit your score?";
 
-        if (choice == JOptionPane.YES_OPTION) {
-            playerName = JOptionPane.showInputDialog(this, gameOverText, "Game Over", JOptionPane.PLAIN_MESSAGE);
-            /* PLACEHOLDER, POST THE SCORE TO SERVER */
-        }
-        mainMenu.returnToMenu();
-        gp.dispose();
-        this.gp = null;
+                int choice = JOptionPane.showConfirmDialog(
+                        null,
+                        gameOverText,
+                        "Game Over",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    String name = JOptionPane.showInputDialog(
+                            null,
+                            "Enter your name:",
+                            "Score Submission",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                    if (name != null && !name.trim().isEmpty()) {
+                        this.playerName = name.trim();
+                        // TODO: Submit score to server
+                        System.out.println("Score submitted for player: " + playerName);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Dialog error (continuing anyway): " + e.getMessage());
+            }
+
+            mainMenu.returnToMenu();
+            if (gp != null) {
+                gp.dispose();
+                gp = null;
+            }
+        });
     }
 
     public String getPlayerName() {
