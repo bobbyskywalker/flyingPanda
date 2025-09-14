@@ -31,7 +31,7 @@ public class Bee extends Entity {
 
         setSpeed(1 + rand.nextInt(3));
         shootingRatio = 90;
-        setShotDamage(20);
+        setShotDamage(15);
         setDirection("left");
         setBullets(new ArrayList<>());
     }

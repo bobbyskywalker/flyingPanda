@@ -31,7 +31,7 @@ public class Spider extends Entity {
 
         setSpeed(5);
         shootingRatio = 70;
-        setShotDamage(30);
+        setShotDamage(20);
         setDirection("left");
         setBullets(new ArrayList<>());
     }

@@ -1,6 +1,7 @@
 package com.FlyingPanda.menu;
 
 import com.FlyingPanda.main.GamePanel;
+import com.FlyingPanda.sound.Sound;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,8 @@ public class MainMenu extends JPanel implements KeyListener {
     private JFrame parentFrame;
     private GamePanel gamePanel;
 
+    private Sound toggleSound = new Sound();
+
     public MainMenu(JFrame parentFrame) {
         this.parentFrame = parentFrame;
 
@@ -33,6 +36,7 @@ public class MainMenu extends JPanel implements KeyListener {
 
         titleFont = new Font(fontName, Font.ITALIC, 48);
         buttonFont = new Font(fontName, Font.BOLD, 24);
+        toggleSound.setFile(0);
     }
 
     @Override
@@ -143,11 +147,13 @@ public class MainMenu extends JPanel implements KeyListener {
 
         switch (keyCode) {
             case KeyEvent.VK_UP:
+                toggleSound.play();
                 selectedOption = (selectedOption - 1 + menuOptions.length) % menuOptions.length;
                 repaint();
                 break;
 
             case KeyEvent.VK_DOWN:
+                toggleSound.play();
                 selectedOption = (selectedOption + 1) % menuOptions.length;
                 repaint();
                 break;

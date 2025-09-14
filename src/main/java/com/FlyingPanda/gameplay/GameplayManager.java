@@ -123,7 +123,7 @@ public class GameplayManager {
         this.hud.startWaveTimer();
 
         collectibles.add(new FireBullet( 20_000_000_000L, hud, "fire"));
-        collectibles.add(new HealthPickup(60_000_000_000L, hud, "health"));
+        collectibles.add(new HealthPickup(30_000_000_000L, hud, "health"));
     }
 
     public void dispose() {

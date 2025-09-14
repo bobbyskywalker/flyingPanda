@@ -31,7 +31,7 @@ public class Eagle extends Entity {
 
         setSpeed(1 + rand.nextInt(3));
         shootingRatio = 70;
-        setShotDamage(15);
+        setShotDamage(10);
         setDirection("left");
         setBullets(new ArrayList<>());
     }
