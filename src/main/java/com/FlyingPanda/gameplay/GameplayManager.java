@@ -18,7 +18,7 @@ public class GameplayManager {
     private int numEnemiesToEliminate = 4;
 
     private static final long WAVE_DELAY_MS = 5000;
-    private static final long TIME_TO_FINISH_WAVE = 60_000_000_000L;
+    private static final long TIME_TO_FINISH_WAVE = 45_000_000_000L;
     private long waveStartTime;
     private long waveEndTime = 0;
     private boolean waitingForNextWave = false;
