@@ -19,7 +19,7 @@ public class HUD {
     private long waveInfoDuration = 0;
 
     private long waveStartTime = 0;
-    private static final long WAVE_TIME_LIMIT = 60_000_000_000L;
+    private static final long WAVE_TIME_LIMIT = 45_000_000_000L;
 
     private boolean showingTimeoutMessage = false;
     private long timeoutMessageStartTime = 0;
