@@ -7,6 +7,7 @@ import com.FlyingPanda.menu.GameOverMenu;
 import com.FlyingPanda.menu.MainMenu;
 import com.FlyingPanda.collision.CollissionChecker;
 import com.FlyingPanda.gameplay.GameplayManager;
+import com.FlyingPanda.sound.Sound;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     private final transient MainMenu mainMenu;
 
+    private Sound backgroundMusic = new Sound();
+
     public GamePanel(MainMenu mainMenu) throws IOException {
         this.mainMenu = mainMenu;
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
@@ -44,6 +47,18 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+    }
+
+    public void startBackgroundMusic() {
+        backgroundMusic = new Sound();
+        backgroundMusic.setFile(5);
+        backgroundMusic.loop();
+    }
+
+    public void stopBackgroundMusic() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
+        }
     }
 
     public void startGameThread() {
@@ -60,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void gameOver() {
+        stopBackgroundMusic();
         stopGameThread();
 
         SwingUtilities.invokeLater(() -> {

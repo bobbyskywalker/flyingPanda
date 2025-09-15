@@ -202,6 +202,7 @@ public class MainMenu extends JPanel implements KeyListener {
         parentFrame.repaint();
         gamePanel.requestFocus();
         gamePanel.startGameThread();
+        gamePanel.startBackgroundMusic();
     }
 
     private void showHowToPlay() {

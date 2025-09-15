@@ -14,7 +14,7 @@ public class Sound {
         soundURL[2] = getClass().getResource("/Sounds/SFX/Player/hit.wav");
         soundURL[3] = getClass().getResource("/Sounds/SFX/Enemy/enemy_shoot.wav");
         soundURL[4] = getClass().getResource("/Sounds/SFX/Enemy/hitX.wav");
-        soundURL[5] = getClass().getResource("/Sounds/Music/gameplay_music.wav");
+        soundURL[5] = getClass().getResource("/Music/gameplay_music.wav");
     }
 
     public void setFile(int i) {
@@ -24,6 +24,12 @@ public class Sound {
             clip.open(ais);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void loop() {
+        if (clip != null) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
 
@@ -39,5 +45,9 @@ public class Sound {
 
     public void stop() {
         clip.stop();
+    }
+
+    public boolean isRunning() {
+        return clip != null && clip.isRunning();
     }
 }
