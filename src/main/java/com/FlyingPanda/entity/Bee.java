@@ -34,6 +34,7 @@ public class Bee extends Entity {
         setShotDamage(15);
         setDirection("left");
         setBullets(new ArrayList<>());
+        getSoundShoot().setFile(3);
     }
 
     public void getBeeImage() {
@@ -84,6 +85,7 @@ public class Bee extends Entity {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
             bullets.add(new Bullet(gp, this, "left", "energyBall", 5));
             bullets.add(new Bullet(gp, this, "right", "energyBall", 5));
+            getSoundShoot().play();
             setBullets(bullets);
             shootCounter = 0;
         }

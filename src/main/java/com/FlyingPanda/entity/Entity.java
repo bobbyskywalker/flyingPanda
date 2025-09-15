@@ -3,6 +3,7 @@ package com.FlyingPanda.entity;
 import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.GamePanel;
+import com.FlyingPanda.sound.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,9 @@ public abstract class Entity {
     private int spriteNum = 1;
 
     private final Random rand = new Random();
+
+    private final Sound soundHit = new Sound();
+    private final Sound soundShoot = new Sound();
 
     /* SECTION: Updates*/
     public abstract void update();
@@ -174,5 +178,13 @@ public abstract class Entity {
 
     public Random getRand() {
         return rand;
+    }
+
+    public Sound getSoundShoot() {
+        return soundShoot;
+    }
+
+    public Sound getSoundHit() {
+        return soundHit;
     }
 }

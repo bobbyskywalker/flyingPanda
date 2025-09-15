@@ -34,6 +34,7 @@ public class Eagle extends Entity {
         setShotDamage(10);
         setDirection("left");
         setBullets(new ArrayList<>());
+        getSoundShoot().setFile(3);
     }
 
     public void getEagleImage() {
@@ -83,6 +84,7 @@ public class Eagle extends Entity {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
             bullets.add(new Bullet(gp, this, "left", "bamboo", 5));
             setBullets(bullets);
+            getSoundShoot().play();
             shootCounter = 0;
         }
         updateEntityBullets();

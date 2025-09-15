@@ -14,17 +14,17 @@ public class MainMenu extends JPanel implements KeyListener {
     private static final int BUTTON_HEIGHT = 50;
     private static final int BUTTON_SPACING = 20;
 
-    private String[] menuOptions = {"Start Game", "How to Play", "Leaderboard", "Exit Game"};
+    private final String[] menuOptions = {"Start Game", "How to Play", "Leaderboard", "Exit Game"};
     private int selectedOption = 0;
 
-    private String fontName = "Arial";
-    private Font titleFont;
-    private Font buttonFont;
+    private static final String fontName = "Arial";
+    private final Font titleFont;
+    private final Font buttonFont;
 
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private GamePanel gamePanel;
 
-    private Sound toggleSound = new Sound();
+    private final transient Sound toggleSound = new Sound();
 
     public MainMenu(JFrame parentFrame) {
         this.parentFrame = parentFrame;

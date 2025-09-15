@@ -4,6 +4,7 @@ import com.FlyingPanda.bullet.Bullet;
 import com.FlyingPanda.hud.HUD;
 import com.FlyingPanda.main.Controller;
 import com.FlyingPanda.main.GamePanel;
+import com.FlyingPanda.sound.Sound;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,7 +22,6 @@ public class Player extends Entity {
     private long fireBulletStartTime = 0;
     private static final long FIRE_BULLET_DURATION = 10_000_000_000L;
     private boolean hasFireBulletActive = false;
-
 
     public Player(Controller keyH, GamePanel gp) {
         this.gp = gp;
@@ -52,6 +52,8 @@ public class Player extends Entity {
         setEquippedBulletType("bamboo");
         setShotDamage(15);
         setBullets(new ArrayList<>());
+        getSoundShoot().setFile(1);
+        getSoundHit().setFile(2);
     }
 
     public void getPlayerImage() {
@@ -138,7 +140,9 @@ public class Player extends Entity {
         }
         if (keyHandler.isSpacePressed()) {
             shootCounter++;
+
             if (shootCounter > shootingRatio) {
+                getSoundShoot().play();
                 getBullets().add(new Bullet(gp, this, getDirection(), equippedBulletType, 5));
                 shootCounter = 0;
             }

@@ -6,10 +6,15 @@ import java.net.URL;
 
 public class Sound {
     Clip clip;
-    URL soundURL[] = new URL[30];
+    URL[] soundURL = new URL[30];
 
     public Sound() {
-        soundURL[0] = getClass().getResource("/Sounds/toggle.wav");
+        soundURL[0] = getClass().getResource("/Sounds/SFX/toggle.wav");
+        soundURL[1] = getClass().getResource("/Sounds/SFX/Player/shoot.wav");
+        soundURL[2] = getClass().getResource("/Sounds/SFX/Player/hit.wav");
+        soundURL[3] = getClass().getResource("/Sounds/SFX/Enemy/enemy_shoot.wav");
+        soundURL[4] = getClass().getResource("/Sounds/SFX/Enemy/hitX.wav");
+        soundURL[5] = getClass().getResource("/Sounds/Music/gameplay_music.wav");
     }
 
     public void setFile(int i) {

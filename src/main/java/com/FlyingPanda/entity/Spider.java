@@ -34,6 +34,7 @@ public class Spider extends Entity {
         setShotDamage(20);
         setDirection("left");
         setBullets(new ArrayList<>());
+        getSoundShoot().setFile(3);
     }
 
     public void getSpiderImage() {
@@ -86,6 +87,7 @@ public class Spider extends Entity {
             Bullet newBullet = new Bullet(gp, this, getDirection(), "spiderweb", 10);
             bullets.add(newBullet);
             setBullets(bullets);
+            getSoundShoot().play();
             shootCounter = 0;
         }
         updateEntityBullets();

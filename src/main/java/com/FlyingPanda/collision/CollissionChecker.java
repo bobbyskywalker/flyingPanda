@@ -63,6 +63,7 @@ public class CollissionChecker {
             for (int enemyIndex = 0; enemyIndex < enemies.size(); enemyIndex++) {
                 Entity enemy = enemies.get(enemyIndex);
                 if (checkBulletEntityCollision(playerBullet, enemy.getX(), enemy.getY())) {
+                    player.getSoundHit().play();
                     playerBullets.remove(bulletIndex);
                     player.setBullets(playerBullets);
                     bulletIndex--;
