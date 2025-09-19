@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     transient Background bg;
 
-    static final int FPS = 60;
+    static final int FPS = 90;
 
     transient Thread gameThread;
 

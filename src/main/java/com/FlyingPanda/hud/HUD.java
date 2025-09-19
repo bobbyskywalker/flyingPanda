@@ -189,9 +189,9 @@ public class HUD {
     public void updateScore(Entity enemy) {
         int scoreToAdd = 0;
         switch (enemy) {
-            case Spider _ -> scoreToAdd = 100;
-            case Eagle _ -> scoreToAdd = 50;
-            case Bee _ -> scoreToAdd = 20;
+            case Spider ignored -> scoreToAdd = 100;
+            case Eagle ignored -> scoreToAdd = 50;
+            case Bee ignored -> scoreToAdd = 20;
             default -> {
             }
         }

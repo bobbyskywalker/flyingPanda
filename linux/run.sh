@@ -1,0 +1,1 @@
+java --enable-preview -Xms256m -Xmx512m -jar flyingPanda.jar
