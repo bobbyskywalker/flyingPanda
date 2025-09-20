@@ -2,8 +2,8 @@ package com.FlyingPanda.menu;
 
 import com.FlyingPanda.main.GamePanel;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.swing.*;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -36,8 +36,8 @@ public class GameOverMenu extends JPanel {
             System.out.println("Payload being sent:");
             System.out.println(payload);
 
-            URL leaderboardURL = new URL("http://localhost:8000/scores");
-            HttpURLConnection conn = (HttpURLConnection) leaderboardURL.openConnection();
+            URL leaderboardURL = new URL("https://just-viper-agme-13490751.koyeb.app/scores");
+            HttpsURLConnection conn = (HttpsURLConnection) leaderboardURL.openConnection();
 
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");

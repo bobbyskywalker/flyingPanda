@@ -3,6 +3,7 @@ package com.FlyingPanda.menu;
 import com.FlyingPanda.main.GamePanel;
 import com.FlyingPanda.sound.Sound;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -233,8 +233,8 @@ public class MainMenu extends JPanel implements KeyListener {
     private List<String> fetchTopScores() {
         List<String> scores = new ArrayList<>();
         try {
-            URL leaderboardURL = new URL("http://localhost:8000/scores");
-            HttpURLConnection conn = (HttpURLConnection) leaderboardURL.openConnection();
+            URL leaderboardURL = new URL("https://just-viper-agme-13490751.koyeb.app/scores");
+            HttpsURLConnection conn = (HttpsURLConnection) leaderboardURL.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
