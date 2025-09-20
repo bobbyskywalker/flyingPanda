@@ -16,6 +16,8 @@ No animal was harmed during the development.
 
 ## Build 🧱
 
+Java 17+ is required to build this project.
+
 ### Run with javac
 #### Linux / MacOS 🐧
 ```bash
@@ -24,7 +26,10 @@ make
 ./run.sh
 ```
 #### Windows 🪟
-TBD
+```shell
+powershell -ExecutionPolicy Bypass -File .\build.ps1
+java --enable-preview -jar .\flyingPanda.jar
+```
 
 ### Build and run with Maven Ⓜ️
 ```bash
