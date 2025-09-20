@@ -7,7 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainMenu extends JPanel implements KeyListener {
     private static final int BUTTON_WIDTH = 200;
@@ -223,24 +230,143 @@ public class MainMenu extends JPanel implements KeyListener {
         requestFocus();
     }
 
+    private List<String> fetchTopScores() {
+        List<String> scores = new ArrayList<>();
+        try {
+            URL leaderboardURL = new URL("http://localhost:8000/scores");
+            HttpURLConnection conn = (HttpURLConnection) leaderboardURL.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                String jsonResponse = response.toString();
+                scores = parseScoresFromJson(jsonResponse);
+
+            } else {
+                System.err.println("Failed to fetch leaderboard. Response code: " + responseCode);
+            }
+
+            conn.disconnect();
+        } catch (Exception e) {
+            System.err.println("Error fetching leaderboard: " + e.getMessage());
+        }
+
+        return scores;
+    }
+
+    private List<String> parseScoresFromJson(String jsonResponse) {
+        List<String> scores = new ArrayList<>();
+
+        try {
+            System.out.println("Raw JSON response: " + jsonResponse);
+
+            jsonResponse = jsonResponse.trim();
+
+            int scoresStart = jsonResponse.indexOf("\"scores\":");
+            if (scoresStart == -1) {
+                System.err.println("No 'scores' field found in JSON response");
+                return scores;
+            }
+
+            int arrayStart = jsonResponse.indexOf("[", scoresStart);
+            int arrayEnd = jsonResponse.indexOf("]", arrayStart);
+
+            if (arrayStart == -1 || arrayEnd == -1) {
+                System.err.println("Invalid scores array format");
+                return scores;
+            }
+
+            String scoresArray = jsonResponse.substring(arrayStart + 1, arrayEnd);
+            System.out.println("Extracted scores array: " + scoresArray); // Debug line
+
+            if (scoresArray.trim().isEmpty()) {
+                System.out.println("No scores in the array");
+                return scores;
+            }
+
+            String[] entries = scoresArray.split("\\},\\s*\\{");
+            int rank = 1;
+
+            for (String entry : entries) {
+                if (rank > 5) break;
+
+                entry = entry.replace("{", "").replace("}", "").trim();
+
+                String name = "";
+                int score = 0;
+
+                String[] fields = entry.split(",");
+                for (String field : fields) {
+                    String[] keyValue = field.split(":");
+                    if (keyValue.length == 2) {
+                        String key = keyValue[0].trim().replace("\"", "");
+                        String value = keyValue[1].trim().replace("\"", "");
+
+                        if ("name".equals(key)) {
+                            name = value;
+                        } else if ("score".equals(key)) {
+                            try {
+                                score = Integer.parseInt(value);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Error parsing score: " + value);
+                            }
+                        }
+                    }
+                }
+
+                if (!name.isEmpty()) {
+                    String scoreEntry = String.format("%d. %s - %,d points", rank, name, score);
+                    scores.add(scoreEntry);
+                    System.out.println("Added score: " + scoreEntry);
+                    rank++;
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error parsing JSON: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return scores;
+    }
+
     private void showLeaderboard() {
-        String leaderboardText =
-                "LEADERBOARD:\n\n" +
-                        "1. Player1 - 5,420 points\n" +
-                        "2. Player2 - 4,830 points\n" +
-                        "3. Player3 - 3,670 points\n" +
-                        "4. Player4 - 2,940 points\n" +
-                        "5. Player5 - 2,150 points\n\n" +
-                        "(Leaderboard functionality coming soon!)";
+        List<String> topScores = fetchTopScores();
+
+        StringBuilder leaderboardText = new StringBuilder("LEADERBOARD:\n\n");
+
+        if (topScores.isEmpty()) {
+            leaderboardText.append("No scores available yet!\n\n")
+                    .append("Be the first to submit a score!");
+        } else {
+            for (String score : topScores) {
+                leaderboardText.append(score).append("\n");
+            }
+
+            for (int i = topScores.size(); i < 5; i++) {
+                leaderboardText.append(String.format("%d. --- - --- points\n", i + 1));
+            }
+        }
 
         JOptionPane.showMessageDialog(
                 this,
-                leaderboardText,
+                leaderboardText.toString(),
                 "Leaderboard",
                 JOptionPane.INFORMATION_MESSAGE
         );
         requestFocus();
     }
+
 
     private void exitGame() {
         int choice = JOptionPane.showConfirmDialog(
