@@ -29,7 +29,7 @@ TBD
 ### Build and run with Maven Ⓜ️
 ```bash
 mvn clean install
-java -cp target/flyinggPanda-1.0-SNAPSHOT.jar com.FlyingPanda.main.Main
+java -cp target/flyingPanda-1.0-SNAPSHOT.jar com.FlyingPanda.main.Main
 ```
 
 ## Preview 🖼️
