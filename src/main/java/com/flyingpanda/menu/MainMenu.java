@@ -1,7 +1,7 @@
-package com.FlyingPanda.menu;
+package com.flyingpanda.menu;
 
-import com.FlyingPanda.main.GamePanel;
-import com.FlyingPanda.sound.Sound;
+import com.flyingpanda.main.GamePanel;
+import com.flyingpanda.sound.Sound;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.*;
@@ -24,7 +24,7 @@ public class MainMenu extends JPanel implements KeyListener {
     private final String[] menuOptions = {"Start Game", "How to Play", "Leaderboard", "Exit Game"};
     private int selectedOption = 0;
 
-    private static final String fontName = "Arial";
+    private static final String FONT_NAME = "Arial";
     private final Font titleFont;
     private final Font buttonFont;
 
@@ -36,13 +36,13 @@ public class MainMenu extends JPanel implements KeyListener {
     public MainMenu(JFrame parentFrame) {
         this.parentFrame = parentFrame;
 
-        setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
+        setPreferredSize(new Dimension(GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT));
         setBackground(new Color(20, 20, 40));
         setFocusable(true);
         addKeyListener(this);
 
-        titleFont = new Font(fontName, Font.ITALIC, 48);
-        buttonFont = new Font(fontName, Font.BOLD, 24);
+        titleFont = new Font(FONT_NAME, Font.ITALIC, 48);
+        buttonFont = new Font(FONT_NAME, Font.BOLD, 24);
         toggleSound.setFile(0);
     }
 
@@ -125,7 +125,7 @@ public class MainMenu extends JPanel implements KeyListener {
     }
 
     private void drawInstructions(Graphics2D g2) {
-        g2.setFont(new Font(fontName, Font.PLAIN, 16));
+        g2.setFont(new Font(FONT_NAME, Font.PLAIN, 16));
         g2.setColor(new Color(180, 180, 180));
 
         String instructions = "Use UP/DOWN arrows to navigate, ENTER to select";

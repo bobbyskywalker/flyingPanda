@@ -1,6 +1,6 @@
-package com.FlyingPanda.main;
+package com.flyingpanda.main;
 
-import com.FlyingPanda.menu.MainMenu;
+import com.flyingpanda.menu.MainMenu;
 
 import javax.swing.*;
 

@@ -1,4 +1,4 @@
-package com.FlyingPanda.main;
+package com.flyingpanda.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

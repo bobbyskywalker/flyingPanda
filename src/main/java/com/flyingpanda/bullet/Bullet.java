@@ -1,7 +1,7 @@
-package com.FlyingPanda.bullet;
+package com.flyingpanda.bullet;
 
-import com.FlyingPanda.entity.Entity;
-import com.FlyingPanda.main.GamePanel;
+import com.flyingpanda.entity.Entity;
+import com.flyingpanda.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -76,7 +76,7 @@ public class Bullet {
             case "right" -> right;
             default -> null;
         };
-        g2.drawImage(img, this.x, this.y, GamePanel.tileSize, GamePanel.tileSize, null);
+        g2.drawImage(img, this.x, this.y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     public int getX() {

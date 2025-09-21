@@ -1,11 +1,11 @@
-package com.FlyingPanda.collision;
+package com.flyingpanda.collision;
 
-import com.FlyingPanda.bullet.Bullet;
-import com.FlyingPanda.collectible.Collectible;
-import com.FlyingPanda.entity.*;
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.main.GamePanel;
-import com.FlyingPanda.gameplay.GameplayManager;
+import com.flyingpanda.bullet.Bullet;
+import com.flyingpanda.collectible.Collectible;
+import com.flyingpanda.entity.*;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.main.GamePanel;
+import com.flyingpanda.gameplay.GameplayManager;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +23,8 @@ public class CollissionChecker {
     }
 
     public static boolean checkBulletEntityCollision(Bullet bullet, int entityX, int entityY) {
-        return isColliding(bullet.getX(), bullet.getY(), GamePanel.tileSize, GamePanel.tileSize,
-                entityX, entityY, GamePanel.tileSize, GamePanel.tileSize);
+        return isColliding(bullet.getX(), bullet.getY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE,
+                entityX, entityY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
     }
 
     /* enemies hitting player */
@@ -84,8 +84,8 @@ public class CollissionChecker {
     /* player collecting collectibles */
     private static void checkCollectibleCollection(Player p, List<Collectible> collectibles) {
         for (Collectible c : collectibles) {
-            if (isColliding(c.getX(), c.getY(), GamePanel.tileSize, GamePanel.tileSize,
-                        p.getX(), p.getY(), GamePanel.tileSize, GamePanel.tileSize)) {
+            if (isColliding(c.getX(), c.getY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE,
+                        p.getX(), p.getY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE)) {
 
                 c.beCollected();
                 if (Objects.equals(c.getCollectibleType(), "fire")) {

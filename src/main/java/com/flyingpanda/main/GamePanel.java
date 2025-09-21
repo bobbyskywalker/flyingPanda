@@ -1,27 +1,25 @@
-package com.FlyingPanda.main;
+package com.flyingpanda.main;
 
-import com.FlyingPanda.collectible.Collectible;
-import com.FlyingPanda.entity.*;
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.menu.GameOverMenu;
-import com.FlyingPanda.menu.MainMenu;
-import com.FlyingPanda.collision.CollissionChecker;
-import com.FlyingPanda.gameplay.GameplayManager;
-import com.FlyingPanda.sound.Sound;
+import com.flyingpanda.collectible.Collectible;
+import com.flyingpanda.entity.*;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.menu.GameOverMenu;
+import com.flyingpanda.menu.MainMenu;
+import com.flyingpanda.collision.CollissionChecker;
+import com.flyingpanda.gameplay.GameplayManager;
+import com.flyingpanda.sound.Sound;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
-    public static final int originalTileSize = 20;
-    static final int scale = 3;
-
-    public static final int tileSize = originalTileSize * scale;
-    static final int maxScreenCol = 16;
-    static final int maxScreenRow = 12;
-    public static final int screenWidth = tileSize * maxScreenCol;
-    public static final int screenHeight = tileSize * maxScreenRow;
+    public static final int ORIGINAL_TILE_SIZE = 20;
+    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * 3;
+    private static final int MAX_SCREEN_COL = 16;
+    private static final int MAX_SCREEN_ROW = 12;
+    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
+    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
 
     transient Background bg;
 
@@ -43,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel(MainMenu mainMenu) throws IOException {
         this.mainMenu = mainMenu;
         bg = new Background("/Sprites/bg/mountain_bg.png", "/Sprites/bg/trees.png", "/Sprites/bg/mount_far.png");
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);

@@ -1,4 +1,4 @@
-package com.FlyingPanda.main;
+package com.flyingpanda.main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,20 +32,20 @@ public class Background {
         layer1X -= (int) layer1Speed;
         layer2X -= (int) layer2Speed;
 
-        if (mainX <= -GamePanel.screenWidth) mainX = 0;
-        if (layer1X <= -GamePanel.screenWidth) layer1X = 0;
-        if (layer2X <= -GamePanel.screenWidth) layer2X = 0;
+        if (mainX <= -GamePanel.SCREEN_WIDTH) mainX = 0;
+        if (layer1X <= -GamePanel.SCREEN_WIDTH) layer1X = 0;
+        if (layer2X <= -GamePanel.SCREEN_WIDTH) layer2X = 0;
     }
 
     public void draw(Graphics2D g2) {
-        g2.drawImage(mainLayer, mainX, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
-        g2.drawImage(mainLayer, mainX + GamePanel.screenWidth, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+        g2.drawImage(mainLayer, mainX, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
+        g2.drawImage(mainLayer, mainX + GamePanel.SCREEN_WIDTH, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
 
-        g2.drawImage(layer1, layer1X, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
-        g2.drawImage(layer1, layer1X + GamePanel.screenWidth, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+        g2.drawImage(layer1, layer1X, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
+        g2.drawImage(layer1, layer1X + GamePanel.SCREEN_WIDTH, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
 
-        g2.drawImage(layer2, layer2X, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
-        g2.drawImage(layer2, layer2X + GamePanel.screenWidth, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+        g2.drawImage(layer2, layer2X, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
+        g2.drawImage(layer2, layer2X + GamePanel.SCREEN_WIDTH, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT, null);
     }
 }
 

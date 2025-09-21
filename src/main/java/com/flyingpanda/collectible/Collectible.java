@@ -1,7 +1,7 @@
-package com.FlyingPanda.collectible;
+package com.flyingpanda.collectible;
 
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.main.GamePanel;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,8 +34,8 @@ public abstract class Collectible {
 
     /* spawn collectible at random location on screen */
     private void spawnCollectibleAt() {
-        this.setX(rand.nextInt(GamePanel.screenWidth));
-        int availableHeight = GamePanel.screenHeight - hud.getHudHeight() - GamePanel.tileSize;
+        this.setX(rand.nextInt(GamePanel.SCREEN_WIDTH));
+        int availableHeight = GamePanel.SCREEN_HEIGHT - hud.getHudHeight() - GamePanel.TILE_SIZE;
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));
         lastSpawnTime = System.nanoTime();
     }
@@ -60,7 +60,7 @@ public abstract class Collectible {
 
     public void draw(Graphics2D g2) {
         if (isOnMap)
-            g2.drawImage(img, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+            g2.drawImage(img, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     public int getX() {

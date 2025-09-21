@@ -1,10 +1,9 @@
-package com.FlyingPanda.entity;
+package com.flyingpanda.entity;
 
-import com.FlyingPanda.bullet.Bullet;
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.main.Controller;
-import com.FlyingPanda.main.GamePanel;
-import com.FlyingPanda.sound.Sound;
+import com.flyingpanda.bullet.Bullet;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.main.Controller;
+import com.flyingpanda.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -83,7 +82,7 @@ public class Player extends Entity {
                 Bullet b = playerBullets.get(i);
                 b.update();
 
-                if (b.getX() < 0 || b.getX() > GamePanel.screenWidth) {
+                if (b.getX() < 0 || b.getX() > GamePanel.SCREEN_WIDTH) {
                     playerBullets.remove(b);
                     setBullets(playerBullets);
                     i--;
@@ -110,7 +109,7 @@ public class Player extends Entity {
 
     @Override
     public void update(HUD hud) {
-        if (hasFireBulletActive && System.nanoTime() - fireBulletStartTime >= FIRE_BULLET_DURATION) {
+        if (hasFireBulletActive && (System.nanoTime() - fireBulletStartTime >= FIRE_BULLET_DURATION)) {
             resetBulletType();
         }
 
@@ -122,7 +121,7 @@ public class Player extends Entity {
         }
         if (keyHandler.isDownPressed()) {
             setDirection("down");
-            if (this.getY() + GamePanel.tileSize < GamePanel.screenHeight) {
+            if (this.getY() + GamePanel.TILE_SIZE < GamePanel.SCREEN_HEIGHT) {
                 this.setY(getY() + getSpeed());
             }
         }
@@ -134,7 +133,7 @@ public class Player extends Entity {
         }
         if (keyHandler.isRightPressed()) {
             setDirection("right");
-            if (this.getX() + GamePanel.tileSize < GamePanel.screenWidth) {
+            if (this.getX() + GamePanel.TILE_SIZE < GamePanel.SCREEN_WIDTH) {
                 this.setX(getX() + getSpeed());
             }
         }
@@ -161,11 +160,12 @@ public class Player extends Entity {
         updatePlayerBullets();
     }
 
+    /* TODO: make it smarter :)) */
     @Override
     public void draw(Graphics2D g2) {
         BufferedImage img = null;
 
-        drawHealthBar(g2, GamePanel.tileSize);
+        drawHealthBar(g2, GamePanel.TILE_SIZE);
 
         int spriteNum = getSpriteNum();
         switch (getDirection()) {
@@ -207,7 +207,7 @@ public class Player extends Entity {
                 b.draw(g2);
             }
         }
-        g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
+        g2.drawImage(img, getX(), getY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     public int getLives() {

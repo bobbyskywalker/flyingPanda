@@ -1,9 +1,9 @@
-package com.FlyingPanda.entity;
+package com.flyingpanda.entity;
 
-import com.FlyingPanda.bullet.Bullet;
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.main.GamePanel;
-import com.FlyingPanda.sound.Sound;
+import com.flyingpanda.bullet.Bullet;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.main.GamePanel;
+import com.flyingpanda.sound.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,7 +28,10 @@ public abstract class Entity {
     int shootCounter;
     private int shotDamage = 10;
 
-    public BufferedImage front1, front2, front3, front4, front5, left1, left2, left3, right1, right2, right3;
+    protected BufferedImage front1, front2, front3, front4, front5, left1, left2, left3, right1, right2, right3;
+
+    protected static final String FACING_RIGHT = "right";
+    protected static final String FACING_LEFT = "left";
     private String direction;
 
     private int spriteCounter = 0;
@@ -52,8 +55,8 @@ public abstract class Entity {
         for (int i = 0; i < entityBullets.size(); i++) {
             Bullet b = entityBullets.get(i);
             b.update();
-            if (b.getX() < 0 || b.getX() > GamePanel.screenWidth ||
-                    b.getY() < 0 || b.getY() > GamePanel.screenHeight) {
+            if (b.getX() < 0 || b.getX() > GamePanel.SCREEN_WIDTH ||
+                    b.getY() < 0 || b.getY() > GamePanel.SCREEN_HEIGHT) {
                 entityBullets.remove(i);
                 i--;
             }
@@ -64,7 +67,7 @@ public abstract class Entity {
     public void draw(Graphics2D g2) {
         BufferedImage img = (this.getSpriteNum() == 1) ? front1 : front2;
 
-        drawHealthBar(g2, GamePanel.tileSize);
+        drawHealthBar(g2, GamePanel.TILE_SIZE);
 
         var entityBullets = getBullets();
         if (entityBullets != null) {
@@ -72,7 +75,7 @@ public abstract class Entity {
                 b.draw(g2);
             }
         }
-        g2.drawImage(img, getX(), getY(), GamePanel.tileSize, GamePanel.tileSize, null);
+        g2.drawImage(img, getX(), getY(), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     public void drawHealthBar(Graphics2D g2, int entityWidth) {

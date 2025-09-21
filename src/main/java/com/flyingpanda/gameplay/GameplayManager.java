@@ -1,11 +1,11 @@
-package com.FlyingPanda.gameplay;
+package com.flyingpanda.gameplay;
 
-import com.FlyingPanda.collectible.Collectible;
-import com.FlyingPanda.collectible.FireBullet;
-import com.FlyingPanda.collectible.HealthPickup;
-import com.FlyingPanda.entity.*;
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.main.GamePanel;
+import com.flyingpanda.collectible.Collectible;
+import com.flyingpanda.collectible.FireBullet;
+import com.flyingpanda.collectible.HealthPickup;
+import com.flyingpanda.entity.*;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.main.GamePanel;
 
 import java.io.IOException;
 import java.util.ArrayList;

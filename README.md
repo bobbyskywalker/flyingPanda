@@ -34,7 +34,7 @@ java --enable-preview -jar .\flyingPanda.jar
 ### Build and run with Maven Ⓜ️
 ```bash
 mvn clean install
-java -cp target/flyingPanda-1.0-SNAPSHOT.jar com.FlyingPanda.main.Main
+java -cp target/flyingPanda-1.0-SNAPSHOT.jar com.flyingpanda.main.Main
 ```
 
 ## Preview 🖼️

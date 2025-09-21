@@ -1,11 +1,12 @@
-package com.FlyingPanda.menu;
+package com.flyingpanda.menu;
 
-import com.FlyingPanda.main.GamePanel;
+import com.flyingpanda.main.GamePanel;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class GameOverMenu extends JPanel {
     private int score;
@@ -15,23 +16,11 @@ public class GameOverMenu extends JPanel {
 
     GamePanel gp;
 
-    private String buildScorePayload() {
-        String jsonPayload = String.format(
-                "{\"name\":\"%s\",\"score\":%d}",
-                playerName,
-                score
-        );
-        sb.setLength(0);
-        sb.append(jsonPayload);
-        return jsonPayload;
-    }
-
-
     private void sendScorePayload() throws MalformedURLException {
         try {
             System.out.println("Attempting to send score payload...");
 
-            String payload = String.format("{\n    \"name\": \"%s\",\n    \"score\": %d\n}",
+            String payload = String.format("{%n    \"name\": \"%s\",%n    \"score\": %d%n}",
                     playerName, score);
             System.out.println("Payload being sent:");
             System.out.println(payload);
@@ -45,7 +34,7 @@ public class GameOverMenu extends JPanel {
             conn.setDoOutput(true);
             conn.setDoInput(true);
 
-            byte[] payloadBytes = payload.getBytes("UTF-8");
+            byte[] payloadBytes = payload.getBytes(StandardCharsets.UTF_8);
             conn.setRequestProperty("Content-Length", String.valueOf(payloadBytes.length));
 
             try (java.io.OutputStream os = conn.getOutputStream()) {

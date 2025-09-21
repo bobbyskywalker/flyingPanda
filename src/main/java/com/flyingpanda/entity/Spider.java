@@ -1,8 +1,8 @@
-package com.FlyingPanda.entity;
+package com.flyingpanda.entity;
 
-import com.FlyingPanda.bullet.Bullet;
-import com.FlyingPanda.hud.HUD;
-import com.FlyingPanda.main.GamePanel;
+import com.flyingpanda.bullet.Bullet;
+import com.flyingpanda.hud.HUD;
+import com.flyingpanda.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class Bee extends Entity {
+public class Spider extends Entity {
     GamePanel gp;
 
-    public Bee(GamePanel gp, HUD hud) {
+    public Spider(GamePanel gp, HUD hud) {
         this.gp = gp;
         setDefaultValues(hud);
-        getBeeImage();
+        getSpiderImage();
     }
 
     @Override
@@ -25,25 +25,26 @@ public class Bee extends Entity {
     @Override
     public void setDefaultValues(HUD hud) {
         Random rand = getRand();
-        this.setX(GamePanel.screenWidth);
-        int availableHeight = GamePanel.screenHeight - hud.getHudHeight() - GamePanel.tileSize;
+        this.setX(GamePanel.SCREEN_WIDTH);
+        int availableHeight = GamePanel.SCREEN_HEIGHT - hud.getHudHeight() - GamePanel.TILE_SIZE;
         this.setY(hud.getHudHeight() + rand.nextInt(availableHeight));
 
-        setSpeed(1 + rand.nextInt(3));
-        shootingRatio = 90;
-        setShotDamage(15);
+        setSpeed(5);
+        shootingRatio = 70;
+        setShotDamage(20);
         setDirection("left");
         setBullets(new ArrayList<>());
         getSoundShoot().setFile(3);
     }
 
-    public void getBeeImage() {
+    public void getSpiderImage() {
         try {
-            front1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bee/bee-1.png")));
-            front2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bee/bee-2.png")));
-            front3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bee/bee-3.png")));
-            front4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/bee/bee-4.png")));
-            front5 = left1 = left2 = left3 = right1 = right2 = right3 = null;
+            front1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-01.png")));
+            front2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-02.png")));
+            front3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-03.png")));
+            front4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-04.png")));
+            front5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Sprites/spider/spider-05.png")));
+            left1 = left2 = left3 = right1 = right2 = right3 = null;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +52,7 @@ public class Bee extends Entity {
     }
 
     @Override
-    public void update(HUD hud) { /* unused by the bee class */ }
+    public void update(HUD hud) { /* unused by the spider class */ }
 
     @Override
     public void update() {
@@ -65,7 +66,7 @@ public class Bee extends Entity {
                 setDirection("right");
 
         } else if (Objects.equals(getDirection(), "right")) {
-            if (x < GamePanel.screenWidth - offset)
+            if (x < GamePanel.SCREEN_WIDTH - offset)
                 this.setX(x + this.getSpeed());
             else
                 setDirection("left");
@@ -83,10 +84,10 @@ public class Bee extends Entity {
         shootCounter++;
         if (shootCounter > shootingRatio) {
             ArrayList<Bullet> bullets = (ArrayList<Bullet>) getBullets();
-            bullets.add(new Bullet(gp, this, "left", "energyBall", 5));
-            bullets.add(new Bullet(gp, this, "right", "energyBall", 5));
-            getSoundShoot().play();
+            Bullet newBullet = new Bullet(gp, this, getDirection(), "spiderweb", 10);
+            bullets.add(newBullet);
             setBullets(bullets);
+            getSoundShoot().play();
             shootCounter = 0;
         }
         updateEntityBullets();

@@ -1,4 +1,4 @@
-package com.FlyingPanda.sound;
+package com.flyingpanda.sound;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

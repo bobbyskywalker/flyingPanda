@@ -1,6 +1,6 @@
-package com.FlyingPanda.collectible;
+package com.flyingpanda.collectible;
 
-import com.FlyingPanda.hud.HUD;
+import com.flyingpanda.hud.HUD;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;

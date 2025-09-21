@@ -1,10 +1,10 @@
-package com.FlyingPanda.hud;
+package com.flyingpanda.hud;
 
-import com.FlyingPanda.entity.Bee;
-import com.FlyingPanda.entity.Eagle;
-import com.FlyingPanda.entity.Entity;
-import com.FlyingPanda.entity.Spider;
-import com.FlyingPanda.main.GamePanel;
+import com.flyingpanda.entity.Bee;
+import com.flyingpanda.entity.Eagle;
+import com.flyingpanda.entity.Entity;
+import com.flyingpanda.entity.Spider;
+import com.flyingpanda.main.GamePanel;
 
 import java.awt.*;
 
@@ -27,7 +27,7 @@ public class HUD {
 
 
     private static final int hudHeight = 60;
-    private static final int hudWidth = GamePanel.screenWidth;
+    private static final int hudWidth = GamePanel.SCREEN_WIDTH;
 
     public HUD() {
         score = 0;
@@ -111,26 +111,26 @@ public class HUD {
             FontMetrics fm = g2.getFontMetrics();
 
             g2.setColor(new Color(0, 0, 0, 150));
-            g2.fillRect(0, GamePanel.screenHeight / 2 - 80, GamePanel.screenWidth, 160);
+            g2.fillRect(0, GamePanel.SCREEN_HEIGHT / 2 - 80, GamePanel.SCREEN_WIDTH, 160);
 
             g2.setColor(Color.GREEN);
             int messageWidth = fm.stringWidth(waveCompletionMessage);
             g2.drawString(waveCompletionMessage,
-                    (GamePanel.screenWidth - messageWidth) / 2,
-                    GamePanel.screenHeight / 2 - 20);
+                    (GamePanel.SCREEN_WIDTH - messageWidth) / 2,
+                    GamePanel.SCREEN_HEIGHT / 2 - 20);
 
             g2.setColor(Color.YELLOW);
             messageWidth = fm.stringWidth(nextWaveMessage);
             g2.drawString(nextWaveMessage,
-                    (GamePanel.screenWidth - messageWidth) / 2,
-                    GamePanel.screenHeight / 2 + 20);
+                    (GamePanel.SCREEN_WIDTH - messageWidth) / 2,
+                    GamePanel.SCREEN_HEIGHT / 2 + 20);
 
             String countdownText = "Starting in: " + (timeRemaining / 1000 + 1);
             g2.setColor(Color.WHITE);
             messageWidth = fm.stringWidth(countdownText);
             g2.drawString(countdownText,
-                    (GamePanel.screenWidth - messageWidth) / 2,
-                    GamePanel.screenHeight / 2 + 60);
+                    (GamePanel.SCREEN_WIDTH - messageWidth) / 2,
+                    GamePanel.SCREEN_HEIGHT / 2 + 60);
 
             g2.setFont(originalFont);
         }
@@ -145,8 +145,8 @@ public class HUD {
                 String timeoutText = "TIME'S UP! -1 LIFE";
                 g2.setColor(Color.RED);
                 int messageWidth = fm.stringWidth(timeoutText);
-                int messageX = (GamePanel.screenWidth - messageWidth) / 2;
-                int messageY = GamePanel.screenHeight / 4;
+                int messageX = (GamePanel.SCREEN_WIDTH - messageWidth) / 2;
+                int messageY = GamePanel.SCREEN_HEIGHT / 4;
 
                 g2.setColor(new Color(0, 0, 0, 180));
                 g2.fillRect(messageX - 10, messageY - 30, messageWidth + 20, 40);
