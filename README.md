@@ -19,6 +19,15 @@ No animal was harmed during the development.
 Java 17+ is required to build this project.
 
 ### Run with javac
+Make sure the *build.sh* script contains your version of the Java SDK at line 4:
+```
+#!/usr/bin/env bash
+set -euo pipefail
+
+JVER=21
+...
+```
+
 #### Linux / MacOS 🐧
 ```bash
 cd linux
@@ -27,6 +36,7 @@ make
 ```
 #### Windows 🪟
 ```shell
+cd windows
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 java --enable-preview -jar .\flyingPanda.jar
 ```
